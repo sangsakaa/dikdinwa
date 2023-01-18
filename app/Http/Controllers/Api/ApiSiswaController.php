@@ -98,6 +98,6 @@ class ApiSiswaController extends Controller
     }
     public function setting()
     {
-        return view('syn');
+        return view('Syn');
     }
 }
