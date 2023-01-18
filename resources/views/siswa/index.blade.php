@@ -24,7 +24,7 @@
               @endforeach
             ],
             datasets: [{
-              label: 'BERDASARKAN TAHUN ANGKATAN ULA dan WUSTHO',
+              label: 'BERDASARKAN TAHUN ANGKATAN ULA DAN WUSTHO',
               data: [
                 @foreach($data as $key => $value)
                 '{{$value}}',
