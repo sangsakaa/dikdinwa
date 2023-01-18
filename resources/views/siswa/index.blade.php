@@ -48,7 +48,7 @@
         });
       </script>
     </div>
-    <div class=" bg-white mt-2">
+    <!-- <div class=" bg-white mt-2">
       <div class=" p-4">
 
         <table class=" w-full">
@@ -91,6 +91,6 @@
         </table>
 
       </div>
-    </div>
+    </div> -->
   </div>
 </x-app-layout>
