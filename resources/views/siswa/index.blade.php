@@ -8,7 +8,7 @@
   <script>
     toastr.success('Have fun storming the castle!', 'Miracle Max Says')
   </script>
-  <div class="p-4 grid grid-cols-2 gap-2">
+  <div class="p-4 grid sm:grid-cols-2 gap-2 grid-cols-1">
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg sm:w-full">
       <div class="  rounded-lg overflow-hidden w-full sm:w-full px-6">
         <canvas class="p-2 sm:w-full" id="myChart"></canvas>
