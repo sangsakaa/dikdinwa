@@ -20,16 +20,14 @@ class SiswaController extends Controller
             ->Orderby('nama_siswa')
             ->Orderby('tanggal_masuk')
             ->get();
-        $count_ula_wustho = $x->whereIn('madrasah_diniyah', ['Ula', 'Wustho'])->count();
+        $ULA = $x->whereIn('madrasah_diniyah', ['Ula'])->countBy('tanggal_masuk');
         $data = $x->countBy('tanggal_masuk');
         return view(
             'siswa.index',
-
             [
                 'dataSiswa' => $dataSiswa,
-
                 'data' => $data,
-                'result' => $count_ula_wustho,
+                'result' => $ULA,
 
             ]
         );
