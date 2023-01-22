@@ -1,8 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\ApiSiswaController;
-use App\Http\Controllers\SiswaController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,11 +22,11 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('siswa', [SiswaController::class, 'index'])->middleware(['auth', 'verified'])->name('index');
-Route::get('dashboard', [ApiSiswaController::class, 'ViewSiswa'])->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('syn', [ApiSiswaController::class, 'setting'])->middleware(['auth', 'verified'])->name('syn');
-Route::get('Syn', [ApiSiswaController::class, 'getData'])->middleware(['auth', 'verified'])->name('syn');
-
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
 // useless routes
 // Just to demo sidebar dropdown links active states.
