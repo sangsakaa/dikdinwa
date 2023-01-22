@@ -16,8 +16,8 @@
     <div x-transition x-show="isSidebarOpen || isSidebarHovered" class="text-sm text-gray-500">Dummy Links</div>
 
 
-    <x-sidebar.github title="Data Siswa " href="/siswa" />
-    <x-sidebar.github title="SynCron " href="/Syn" />
+    <x-sidebar.link title="Data Siswa " href="/siswa" />
+    <x-sidebar.link title="SynCron " href="/Syn" />
 
 
 </x-perfect-scrollbar>
