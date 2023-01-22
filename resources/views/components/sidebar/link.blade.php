@@ -15,6 +15,7 @@ if($collapsible) $classes .= ' w-full';
     @else
     <x-icons.github class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
     @endif
+    <x-icons.github class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
 
     <span class="text-base font-medium whitespace-nowrap" x-show="isSidebarOpen || isSidebarHovered">
         {{ $title }}
