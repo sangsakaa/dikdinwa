@@ -23,10 +23,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('siswa', [SiswaController::class, 'index'])->middleware(['auth'])->name('index');
-Route::get('dashboard', [ApiSiswaController::class, 'ViewSiswa'])->middleware(['auth'])->name('dashboard');
-Route::get('syn', [ApiSiswaController::class, 'setting'])->middleware(['auth'])->name('syn');
-Route::get('Syn', [ApiSiswaController::class, 'getData'])->middleware(['auth'])->name('syn');
+Route::get('siswa', [SiswaController::class, 'index'])->middleware(['auth', 'verified'])->name('index');
+Route::get('dashboard', [ApiSiswaController::class, 'ViewSiswa'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('syn', [ApiSiswaController::class, 'setting'])->middleware(['auth', 'verified'])->name('syn');
+Route::get('Syn', [ApiSiswaController::class, 'getData'])->middleware(['auth', 'verified'])->name('syn');
 
 
 // useless routes
