@@ -10,6 +10,9 @@
         Syn
     </a>
     <div class=" grid grid-cols-1 sm:grid-cols-2 px-6 w-full bg-white">
+        <!-- Required chart.js -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <!-- Chart bar -->
         <div class="p-4">
             <div class=" px-2 font-semibold ">
                 <canvas id="jenis_kelamin" class=" font-semibold"></canvas>

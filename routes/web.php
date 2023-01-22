@@ -1,10 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ApiSiswaController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SiswaController;
-use App\Http\Controllers\WelcomeController;
-use App\Models\Siswa;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,26 +15,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    Route::get('Syn', [ApiSiswaController::class, 'getData']);
-    Route::get('dashboard', [ApiSiswaController::class, 'ViewSiswa'])->name('dashboard');
-    Route::get('syn', [ApiSiswaController::class, 'setting'])->name('syn');
+Route::get('siswa', [SiswaController::class, 'index'])->middleware(['auth'])->name('index');
+Route::get('dashboard', [ApiSiswaController::class, 'ViewSiswa'])->middleware(['auth'])->name('dashboard');
+Route::get('syn', [ApiSiswaController::class, 'setting'])->middleware(['auth'])->name('syn');
+Route::get('Syn', [ApiSiswaController::class, 'getData'])->middleware(['auth'])->name('syn');
 
 
-    // Controller Siswa
-    Route::get('siswa', [SiswaController::class, 'index'])->name('siswa');
-    Route::delete('siswa/{siswa}', [SiswaController::class, 'destroy']);
-});
+// useless routes
+// Just to demo sidebar dropdown links active states.
+Route::get('/buttons/text', function () {
+    return view('buttons-showcase.text');
+})->middleware(['auth'])->name('buttons.text');
+
+Route::get('/buttons/icon', function () {
+    return view('buttons-showcase.icon');
+})->middleware(['auth'])->name('buttons.icon');
+
+Route::get('/buttons/text-icon', function () {
+    return view('buttons-showcase.text-icon');
+})->middleware(['auth'])->name('buttons.text-icon');
 
 require __DIR__ . '/auth.php';
