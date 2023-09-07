@@ -8,12 +8,8 @@
 
         <span>by</span>
 
-        <a
-            href="https://github.com/Kamona-WD"
-            target="_blank"
-            class="text-blue-600 hover:underline"
-        >
-            Ahmed Kamel
+        <a href="https://github.com/Kamona-WD" target="_blank" class="text-blue-600 hover:underline">
+            Madin Wustho &copy 2023
         </a>
     </p>
 </footer>

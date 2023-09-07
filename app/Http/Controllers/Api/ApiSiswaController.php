@@ -15,12 +15,26 @@ class ApiSiswaController extends Controller
     public function getData()
     {
         try {
-            $response = Http::get('https://wustho.smedi.my.id/api/siswa');
-            $nis = $response->json();
-            // dd($nis);
-            $filteredData = array_filter($nis['siswa'], function ($item) {
-                return $item['nama_lembaga'] == 'Wahidiyah';
-            });
+            $urls = [
+                'https://wustho.smedi.my.id/api/siswa',
+                'https://ulya.smedi.my.id/api/siswa',
+                'https://ula.smedi.my.id/api/siswa',
+                // Tambahkan URL lainnya di sini jika diperlukan
+            ];
+
+            $filteredData = [];
+
+            foreach ($urls as $url) {
+                $response = Http::get($url);
+                $nis = $response->json();
+
+                // Periksa apakah ada data 'siswa' dalam respons
+                if (isset($nis['siswa'])) {
+                    $filteredData = array_merge($filteredData, array_filter($nis['siswa'], function ($item) {
+                        return $item['nama_lembaga'] == 'Wahidiyah';
+                    }));
+                }
+            }
 
             // Initialize the progress bar
             $progressBar = '<script>NProgress.start();</script>';
