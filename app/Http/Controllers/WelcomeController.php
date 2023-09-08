@@ -8,6 +8,7 @@ class WelcomeController extends Controller
 {
     public function index()
     {
-        return view('welcome');
+        $a = 100;
+        return view('dashboard', compact('a'));
     }
 }
