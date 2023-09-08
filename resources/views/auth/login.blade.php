@@ -2,7 +2,7 @@
     <x-auth-card>
         <center>
             <p>
-                DEPARTEMEN <br>PENDIDIK DINIYAH WAHIDIYAH
+                DEPARTEMEN <br>PENDIDIKAN DINIYAH WAHIDIYAH
             </p>
         </center>
         <!-- Session Status -->
