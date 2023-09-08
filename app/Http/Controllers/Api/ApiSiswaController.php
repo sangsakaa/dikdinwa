@@ -57,6 +57,7 @@ class ApiSiswaController extends Controller
                                 'nama_lembaga' => $item['nama_lembaga'],
                                 'tanggal_lahir' => $item['tanggal_lahir'],
                                 
+                                
                                 // Tambahkan kolom-kolom lain sesuai kebutuhan
                             ]
                         );
