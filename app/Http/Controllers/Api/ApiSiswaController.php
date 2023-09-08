@@ -50,6 +50,8 @@ class ApiSiswaController extends Controller
                             'jenis_kelamin' => $item['jenis_kelamin'],
                             'madrasah_diniyah' => $item['madrasah_diniyah'],
                             'agama' => $item['agama'],
+                            'tanggal_lahir' => $item['tempat_lahir'],
+                            'tanggal_lahir' => $item['tanggal_lahir'],
                             'tanggal_masuk' => $item['tanggal_masuk'],
                             'nama_lembaga' => $item['nama_lembaga'],
                             // Add other columns as needed
