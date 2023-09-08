@@ -40,7 +40,7 @@ class ApiSiswaController extends Controller
             $progressBar = '<script>NProgress.start();</script>';
 
             foreach ($filteredData as $index => $item) {
-                dd($item);
+                // dd($item);
                 if (!Siswa::where('nis', $item['nis'])->exists()) {
                     if (Validator::make($item, [
                         'nis' => 'unique:siswa',
