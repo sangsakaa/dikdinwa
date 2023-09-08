@@ -15,8 +15,11 @@ class SiswaController extends Controller
         $dataSiswa = Siswa::query()
             // ->whereIn('madrasah_diniyah', ['Ulya', 'Wustho', 'Ula'])
             ->orderby('madrasah_diniyah')
-            ->orderby('nis')
-            ->get();
+            ->orderby('nis');
+        if (request('cari')) {
+            $dataSiswa->where('nama_siswa', 'like', '%' . request('cari') . '%');
+            $dataSiswa->Orwhere('nis', 'like', '%' . request('cari') . '%');
+        }
         
 
         
@@ -25,7 +28,7 @@ class SiswaController extends Controller
         return view(
             'siswa.index',
             [
-                'dataSiswa' => $dataSiswa,
+                'dataSiswa' => $dataSiswa->paginate(10),
                 
                 
 

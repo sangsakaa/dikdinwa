@@ -40,6 +40,7 @@ class ApiSiswaController extends Controller
 
             foreach ($filteredData as $index => $item) {
                 // dd($item);
+                
                 if (!Siswa::where('nis', $item['nis'])->exists()) {
                     if (Validator::make($item, [
                         'nis' => 'unique:siswa',
@@ -56,8 +57,6 @@ class ApiSiswaController extends Controller
                                 'kota_asal' => $item['kota_asal'],
                                 'nama_lembaga' => $item['nama_lembaga'],
                                 'tanggal_lahir' => $item['tanggal_lahir'],
-                                
-                                
                                 // Tambahkan kolom-kolom lain sesuai kebutuhan
                             ]
                         );

@@ -18,12 +18,18 @@
   </x-slot>
   <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
     <div class=" bg-white  justify-between ">
-
+      <div class=" py-1">
+        <form action="/data-siswa" method="get" class="  text-sm gap-1 flex">
+          <input type="text" name="cari" value="{{ request('cari') }}" class=" dark:bg-dark-bg border border-green-800 text-green-800 rounded-md py-1 " placeholder=" Cari .." autofocus>
+          <x-button type="submit" variant="red" class=" px-2  py-1     rounded-md text-white">
+            Cari </x-button>
+        </form>
+      </div>
       <div class=" overflow-auto">
         <table class=" w-full">
           <thead>
             <tr class=" border text-sm">
-              <th class=" border">No</th>
+              <th class=" border py-2">No</th>
               <th class=" border">NIS</th>
               <th class=" border">Nama Siswa</th>
               <th class=" border">JK</th>
@@ -37,9 +43,10 @@
             </tr>
           </thead>
           <tbody>
+            @if($dataSiswa->count() != null)
             @foreach ($dataSiswa as $siswa)
             <tr class=" text-sm even:bg-gray-100 hover:bg-green-100">
-              <td class=" border text-center">{{ $loop->iteration }}</td>
+              <td class="py-1 border text-center">{{ $loop->iteration }}</td>
               <td class=" border text-center">{{ $siswa->nis }}</td>
               <td class=" border text-left">{{ $siswa->nama_siswa }}</td>
               <td class=" border text-center">{{ $siswa->jenis_kelamin }}</td>
@@ -52,6 +59,16 @@
               <!-- <td class=" border text-center">{{ $siswa->tanggal_masuk }}</td> -->
             </tr>
             @endforeach
+            @else
+            <tr>
+              <td colspan="5" class=" border  text-red-700 text-center font-semibold uppercase">data tidak ditemukan</td>
+            </tr>
+            @endif
+            <tr>
+              <td colspan="5" class=" py-1">
+                {{$dataSiswa}}
+              </td>
+            </tr>
           </tbody>
         </table>
 
