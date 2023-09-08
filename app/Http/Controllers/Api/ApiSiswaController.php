@@ -35,7 +35,6 @@ class ApiSiswaController extends Controller
                     }));
                 }
             }
-
             // Initialize the progress bar
             $progressBar = '<script>NProgress.start();</script>';
 
@@ -57,7 +56,7 @@ class ApiSiswaController extends Controller
                                 'kota_asal' => $item['kota_asal'],
                                 'nama_lembaga' => $item['nama_lembaga'],
                                 'tanggal_lahir' => $item['tanggal_lahir'],
-                                'nama_asrama' => $item['nama_asrama'],
+                                
                                 // Tambahkan kolom-kolom lain sesuai kebutuhan
                             ]
                         );
