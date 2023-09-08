@@ -42,7 +42,6 @@
               <td class=" border text-center">{{ $siswa->nis }}</td>
               <td class=" border text-left">{{ $siswa->nama_siswa }}</td>
               <td class=" border text-center">{{ $siswa->jenis_kelamin }}</td>
-
               <td class=" border text-center">{{ $siswa->tempat_lahir }}</td>
               <td class=" border text-center">{{ $siswa->tanggal_lahir }}</td>
               <td class=" border text-center">{{ $siswa->kota_asal }}</td>

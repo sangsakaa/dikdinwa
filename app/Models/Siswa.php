@@ -16,6 +16,9 @@ class Siswa extends Model
         'jenis_kelamin',
         'agama',
         'tanggal_masuk',
-        'nama_lembaga'
+        'nama_lembaga',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'kota_asal'
     ];
 }

@@ -40,32 +40,37 @@ class ApiSiswaController extends Controller
             $progressBar = '<script>NProgress.start();</script>';
 
             foreach ($filteredData as $index => $item) {
+                // dd($item);
                 if (!Siswa::where('nis', $item['nis'])->exists()) {
                     if (Validator::make($item, [
                         'nis' => 'unique:siswa',
                     ])->passes()) {
-                        Siswa::UpdateorCreate([
-                            'nis' => $item['nis'],
-                            'nama_siswa' => $item['nama_siswa'],
-                            'jenis_kelamin' => $item['jenis_kelamin'],
-                            'madrasah_diniyah' => $item['madrasah_diniyah'],
-                            'agama' => $item['agama'],
-                            'tanggal_lahir' => $item['tempat_lahir'],
-                            'tanggal_lahir' => $item['tanggal_lahir'],
-                            'tanggal_masuk' => $item['tanggal_masuk'],
-                            'nama_lembaga' => $item['nama_lembaga'],
-                            // Add other columns as needed
-                        ]);
+                        Siswa::updateOrCreate(
+                            ['nis' => $item['nis']], // Kunci pencarian
+                            [ // Data yang akan diperbarui atau dibuat jika tidak ada yang sesuai
+                                'tempat_lahir' => $item['tempat_lahir'],
+                                'nama_siswa' => $item['nama_siswa'],
+                                'jenis_kelamin' => $item['jenis_kelamin'],
+                                'madrasah_diniyah' => $item['madrasah_diniyah'],
+                                'agama' => $item['agama'],
+                                'tanggal_masuk' => $item['tanggal_masuk'],
+                                'kota_asal' => $item['kota_asal'],
+                                'nama_lembaga' => $item['nama_lembaga'],
+                                'tanggal_lahir' => $item['tanggal_lahir'],
+                                // Tambahkan kolom-kolom lain sesuai kebutuhan
+                            ]
+                        );
                     } else {
                         // Handle validation failure
-                        // You can use the message bag to get the validation errors and act accordingly
+                        // Anda dapat menggunakan message bag untuk mendapatkan error validasi dan bertindak sesuai
                         $errors = Validator::make($item, [
                             'nis' => 'unique:siswa',
                         ])->errors();
-                        // You can add a message to the session to display to the user or log the error
-                        Session::flash('error', 'Validation failed for item: ' . json_encode($item) . ' with errors: ' . json_encode($errors));
+                        // Anda dapat menambahkan pesan ke sesi untuk ditampilkan kepada pengguna atau mencatat error
+                        Session::flash('error', 'Validasi gagal untuk item: ' . json_encode($item) . ' dengan error: ' . json_encode($errors));
                     }
                 }
+
                 // Calculate the progress percentage
                 $progress = ($index + 1) / count($filteredData) * 100;
                 // Update the progress bar
