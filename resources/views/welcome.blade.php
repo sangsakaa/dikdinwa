@@ -197,7 +197,7 @@
         }
 
         .pt-8 {
-            padding-top: 2rem
+            padding-top: 8rem
         }
 
         .fixed {
@@ -409,8 +409,8 @@
             @endauth
         </div>
         @endif -->
-        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-            <div class=" grid justify-center pt-8 sm:justify-start sm:pt-0">
+        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 ">
+            <div class=" grid justify-center pt-8   sm:pt-8">
                 <center>
                     <div>
                         <img src="{{asset('asset/images/logo.png')}}" alt="" height="150px">
@@ -435,7 +435,7 @@
                     </div>
                 </center>
             </div>
-            <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
+            <div class="">
                 <div class=" text-center text-sm text-gray-500 sm:text-right sm:ml-0">
                     <center>
                         APP v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
