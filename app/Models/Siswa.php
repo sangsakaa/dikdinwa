@@ -19,6 +19,7 @@ class Siswa extends Model
         'nama_lembaga',
         'tempat_lahir',
         'tanggal_lahir',
-        'kota_asal'
+        'kota_asal',
+        'nama_asrama'
     ];
 }

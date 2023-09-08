@@ -40,7 +40,7 @@ class ApiSiswaController extends Controller
             $progressBar = '<script>NProgress.start();</script>';
 
             foreach ($filteredData as $index => $item) {
-                // dd($item);
+                dd($item);
                 if (!Siswa::where('nis', $item['nis'])->exists()) {
                     if (Validator::make($item, [
                         'nis' => 'unique:siswa',
@@ -57,6 +57,7 @@ class ApiSiswaController extends Controller
                                 'kota_asal' => $item['kota_asal'],
                                 'nama_lembaga' => $item['nama_lembaga'],
                                 'tanggal_lahir' => $item['tanggal_lahir'],
+                                'nama_asrama' => $item['nama_asrama'],
                                 // Tambahkan kolom-kolom lain sesuai kebutuhan
                             ]
                         );

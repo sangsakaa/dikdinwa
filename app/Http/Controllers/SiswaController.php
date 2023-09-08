@@ -15,7 +15,6 @@ class SiswaController extends Controller
         $dataSiswa = Siswa::query()
             // ->whereIn('madrasah_diniyah', ['Ulya', 'Wustho', 'Ula'])
             ->orderby('madrasah_diniyah')
-            
             ->orderby('nis')
             ->get();
         
