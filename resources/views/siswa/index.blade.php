@@ -27,6 +27,7 @@
               <th class=" border">NIS</th>
               <th class=" border">Nama Siswa</th>
               <th class=" border">Jenis Kelamin</th>
+              <th class=" border">Asrama</th>
               <th class=" border">Tempat Lahir</th>
               <th class=" border">Tanggal Lahir</th>
               <th class=" border">Kota Asal</th>
@@ -42,6 +43,7 @@
               <td class=" border text-center">{{ $siswa->nis }}</td>
               <td class=" border text-left">{{ $siswa->nama_siswa }}</td>
               <td class=" border text-center">{{ $siswa->jenis_kelamin }}</td>
+              <td class=" border text-center">{{ $siswa->nama_asrama }}</td>
               <td class=" border text-center">{{ $siswa->tempat_lahir }}</td>
               <td class=" border text-center">{{ $siswa->tanggal_lahir }}</td>
               <td class=" border text-center">{{ $siswa->kota_asal }}</td>
