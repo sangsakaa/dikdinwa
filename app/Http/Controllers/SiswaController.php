@@ -13,15 +13,11 @@ class SiswaController extends Controller
     {
 
         $dataSiswa = Siswa::query()
-            ->whereIn('madrasah_diniyah', ['Ulya', 'Wustho', 'Ula'])
-            ->groupBy('madrasah_diniyah', 'jenis_kelamin')
-            ->select('madrasah_diniyah', 'jenis_kelamin',  DB::raw('count(*) as total'))
+            // ->whereIn('madrasah_diniyah', ['Ulya', 'Wustho', 'Ula'])
+            ->orderby('madrasah_diniyah')
+            ->orderby('nis')
             ->get();
-        $dataSiswaMadin = Siswa::query()
-        ->whereIn('madrasah_diniyah', ['Ulya', 'Wustho', 'Ula'])
-        ->groupBy('madrasah_diniyah')
-        ->select('madrasah_diniyah',  DB::raw('count(*) as total'))
-        ->get();
+        
 
         
 
@@ -30,7 +26,7 @@ class SiswaController extends Controller
             'siswa.index',
             [
                 'dataSiswa' => $dataSiswa,
-                'dataSiswaMadin' => $dataSiswaMadin,
+                
                 
 
             ]
