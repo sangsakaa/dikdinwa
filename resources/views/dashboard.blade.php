@@ -25,9 +25,7 @@
                     <div>
                         <canvas id="barChart"></canvas>
                     </div>
-                    <div>
-                        <canvas id="canva"></canvas>
-                    </div>
+
                 </div>
                 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                 <script>
