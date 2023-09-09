@@ -47,6 +47,9 @@ class SiswaController extends Controller
             ->where('rekap_harian.tgl', $tgl->toDateString())
             ->whereIn('keterangan', ['alfa', 'izin', 'sakit'])
             ->orderByRaw("FIELD(jenjang, 'Ula', 'Wustho', 'Ulya')")
+            ->orderby('nama_kelas')
+            ->orderby('nama_siswa')
+            // ->where('tgl', $tgl)
         ->get();
 
 

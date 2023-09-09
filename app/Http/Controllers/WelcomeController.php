@@ -38,13 +38,30 @@ class WelcomeController extends Controller
             DB::raw('SUM(CASE WHEN keterangan = "alfa" THEN 1 ELSE 0 END) AS jumlah_alfa')
         )
         ->get();
-        // dd($rekapHarian);
+        $rekapBulan = RekapHarian::query()
+        ->whereIn('keterangan', ['alfa', 'izin', 'sakit', 'hadir'])
+        ->orderByRaw("FIELD(jenjang, 'Ula', 'Wustho', 'Ulya')")
+        ->groupBy(DB::raw('YEAR(tgl)'), DB::raw('MONTH(tgl)'), 'jenjang') // Mengelompokkan berdasarkan tahun, bulan, dan jenjang
+        ->select(
+            DB::raw('YEAR(tgl) AS tahun'),
+            DB::raw('MONTH(tgl) AS bulan'),
+            'jenjang',
+            DB::raw('SUM(CASE WHEN keterangan = "sakit" THEN 1 ELSE 0 END) AS jumlah_sakit'),
+            DB::raw('SUM(CASE WHEN keterangan = "izin" THEN 1 ELSE 0 END) AS jumlah_izin'),
+            DB::raw('SUM(CASE WHEN keterangan = "alfa" THEN 1 ELSE 0 END) AS jumlah_alfa')
+        )
+        ->get();
+
+
+
+        // dd($rekapBulan);
 
 
         return view('dashboard', [
             'dataSiswa' => $dataSiswa,
             'dataSiswaMadin' => $dataSiswaMadin,
-            'rekapHarian' => $rekapHarian
+            'rekapHarian' => $rekapHarian,
+            'rekapBulan' => $rekapBulan
         ]);
         
     }

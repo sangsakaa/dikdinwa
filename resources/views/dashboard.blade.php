@@ -13,9 +13,9 @@
 
     <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
         <div>
-            <div class=" bg-white  justify-between ">
+            <div class=" bg-white   ">
                 <span>Dalam Progress Pengembangan</span>
-                <div class=" w-full grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <div class=" w-full grid grid-cols-1 sm:grid-cols-2 gap-2 ">
                     <div>
                         <canvas id="grafik-siswa-id"></canvas>
                     </div>
@@ -23,8 +23,10 @@
                         <canvas id="grafik-siswa"></canvas>
                     </div>
                     <div>
-                        <canvas id="barChart" width="400" height="200"></canvas>
-
+                        <canvas id="barChart"></canvas>
+                    </div>
+                    <div>
+                        <canvas id="canva"></canvas>
                     </div>
                 </div>
                 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -124,19 +126,19 @@
                         data: {
                             labels: jenjang,
                             datasets: [{
-                                label: 'Jumlah Sakit',
+                                label: ' Sakit',
                                 data: jumlahSakit,
                                 backgroundColor: 'rgba(75, 192, 192, 0.2)', // Warna latar belakang batang
                                 borderColor: 'rgba(75, 192, 192, 1)', // Warna batang
                                 borderWidth: 1
                             }, {
-                                label: 'Jumlah Izin',
+                                label: ' Izin',
                                 data: jumlahIzin,
                                 backgroundColor: 'rgba(255, 99, 132, 0.2)', // Warna latar belakang batang
                                 borderColor: 'rgba(255, 99, 132, 1)', // Warna batang
                                 borderWidth: 1
                             }, {
-                                label: 'Jumlah Alfa',
+                                label: ' Alfa',
                                 data: jumlahAlfa,
                                 backgroundColor: 'rgba(255, 206, 86, 0.2)', // Warna latar belakang batang
                                 borderColor: 'rgba(255, 206, 86, 1)', // Warna batang
@@ -152,6 +154,54 @@
                         }
                     });
                 </script>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        var data = @json($rekapBulan);
+
+                        var labels = [];
+                        var jumlahSakit = [];
+                        var jumlahIzin = [];
+                        var jumlahAlfa = [];
+
+                        data.forEach(function(item) {
+                            labels.push(item.tahun + '-' + item.bulan);
+                            jumlahSakit.push(item.jumlah_sakit);
+                            jumlahIzin.push(item.jumlah_izin);
+                            jumlahAlfa.push(item.jumlah_alfa);
+                        });
+
+                        var ctx = document.getElementById('canva').getContext('2d');
+                        var myChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    label: ' Sakit',
+                                    data: jumlahSakit,
+                                    borderColor: 'rgb(255, 99, 132)',
+                                    fill: false,
+                                }, {
+                                    label: ' Izin',
+                                    data: jumlahIzin,
+                                    borderColor: 'rgb(75, 192, 192)',
+                                    fill: false,
+                                }, {
+                                    label: ' Alfa',
+                                    data: jumlahAlfa,
+                                    borderColor: 'rgb(54, 162, 235)',
+                                    fill: false,
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                            }
+                        });
+                    });
+                </script>
+
+
+
 
             </div>
 
