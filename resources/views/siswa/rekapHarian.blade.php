@@ -5,14 +5,26 @@
 
         @section('title', ' | Data Siswa' )
       </h2>
-      <form action="/rekap-siswa-harian" method="post">
-        @method('delete')
-        @csrf
-        <x-button variant="red" class="justify-center max-w-xs gap-2">
-          <x-icons.github class="w-6 h-6" aria-hidden="true" />
-          <span>Reset Data Rekap Harian</span>
-        </x-button>
-      </form>
+      <div class=" flex justify-end gap-2">
+        <div>
+          <form action="/rekap-siswa-harian" method="post">
+            @method('delete')
+            @csrf
+            <x-button variant="red" class="justify-center max-w-xs gap-2">
+              <x-icons.github class="w-6 h-6" aria-hidden="true" />
+              <span>Reset Data </span>
+            </x-button>
+          </form>
+        </div>
+        <div>
+          <form action="/Syn-rekap-harian" method="get">
+            <x-button variant="red" class="justify-center max-w-xs gap-2">
+              <x-icons.github class="w-6 h-6" aria-hidden="true" />
+              <span>Syn</span>
+            </x-button>
+          </form>
+        </div>
+      </div>
 
     </div>
   </x-slot>
@@ -21,7 +33,7 @@
       <div class=" py-1">
         <div class="  ">
           <form action="/rekap-siswa-harian" method="get" class="mr-auto">
-            <input type="date" name="tanggal" class="py-1 dark:bg-dark-bg" value="{{ $tgl->toDateString() }}">
+            <input type="date" name="tgl" class="py-1 dark:bg-dark-bg" value="{{ $tgl->toDateString() }}">
             <button class=" bg-red-600 py-1 dark:bg-purple-600 mt-1 my-1 rounded-sm hover:bg-purple-600 text-white px-4 ">
               Pilih Tanggal
             </button>

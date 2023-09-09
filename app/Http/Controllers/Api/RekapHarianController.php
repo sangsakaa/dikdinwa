@@ -24,29 +24,35 @@ class RekapHarianController extends Controller
 
             foreach ($urls as $url) {
                 set_time_limit('200');
-                 
+
                 $response = Http::get($url);
                 $nis = $response->json();
 
                 // Periksa apakah ada data 'siswa' dalam respons
                 if (isset($nis['dataAbsensiKelas'])) {
-                    $filteredData = array_merge($filteredData, array_filter($nis['dataAbsensiKelas'], function ($item) {
+                    foreach ($nis['dataAbsensiKelas'] as $item) {
                         // Filter berdasarkan jenjang 'Wustho' atau 'Ulya'
-                        return in_array($item['jenjang'], ['Ulya', 'Wustho']);
-                    }));
+                        if (in_array($item['jenjang'], ['Ulya', 'Wustho'])) {
+                            $filteredData[] = $item;
+                        }
+                    }
                 }
             }
             $progressBar = '<script>NProgress.start();</script>';
-            foreach ($filteredData as $index => $item) {
-                RekapHarian::create([
-                    'jenjang' => $item['jenjang'],
-                    'nama_asrama' => $item['nama_asrama'],
-                    'nama_siswa' => $item['nama_siswa'],
-                    'nama_kelas' => $item['nama_kelas'],
-                    'keterangan' => $item['keterangan'],
-                    'tgl' => $item['tgl'],
-                    'id_sesi_kelas' => $item['id_sesi_kelas'],
-                ]);
+
+            foreach ($filteredData as $item) {
+                RekapHarian::updateOrCreate(
+                    ['id_sesi_kelas' => $item['id_sesi_kelas']], // Kolom untuk dicocokkan
+                    [
+                        'jenjang' => $item['jenjang'],
+                        'nama_asrama' => $item['nama_asrama'],
+                        'nama_siswa' => $item['nama_siswa'],
+                        'nama_kelas' => $item['nama_kelas'],
+                        'keterangan' => $item['keterangan'],
+                        'tgl' => $item['tgl'],
+                        'id_sesi_kelas' => $item['id_sesi_kelas'],
+                    ]
+                );
             }
         } catch (\Exception $e) {
             // Tangani kesalahan umum, seperti masalah koneksi, dengan cara yang sesuai
@@ -54,6 +60,7 @@ class RekapHarianController extends Controller
             // Misalnya, Anda dapat mencatat kesalahan atau memberi tahu pengguna.
             dd($e->getMessage()); // Ini hanya contoh penanganan kesalahan sederhana
         }
+
 
         return redirect()->back();
     }
