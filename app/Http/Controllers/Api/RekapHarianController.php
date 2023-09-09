@@ -27,8 +27,8 @@ class RekapHarianController extends Controller
                 $nis = $response->json();
 
                 // Periksa apakah ada data 'siswa' dalam respons
-                if (isset($nis['siswa'])) {
-                    $filteredData = array_merge($filteredData, array_filter($nis['siswa'], function ($item) {
+                if (isset($nis['rekap_harian'])) {
+                    $filteredData = array_merge($filteredData, array_filter($nis['rekap_harian'], function ($item) {
                         return $item['nama_lembaga'] == 'Wahidiyah';
                     }));
                 }
