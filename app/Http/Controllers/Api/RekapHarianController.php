@@ -23,13 +23,16 @@ class RekapHarianController extends Controller
             $filteredData = [];
 
             foreach ($urls as $url) {
+                set_time_limit('200');
+                 
                 $response = Http::get($url);
                 $nis = $response->json();
 
                 // Periksa apakah ada data 'siswa' dalam respons
                 if (isset($nis['dataAbsensiKelas'])) {
                     $filteredData = array_merge($filteredData, array_filter($nis['dataAbsensiKelas'], function ($item) {
-                        return $item['jenjang'] == ['Wustho', 'Ulya', 'Ula'];
+                        // Filter berdasarkan jenjang 'Wustho' atau 'Ulya'
+                        return in_array($item['jenjang'], ['Ulya', 'Wustho']);
                     }));
                 }
             }
@@ -42,6 +45,7 @@ class RekapHarianController extends Controller
                     'nama_kelas' => $item['nama_kelas'],
                     'keterangan' => $item['keterangan'],
                     'tgl' => $item['tgl'],
+                    'id_sesi_kelas' => $item['id_sesi_kelas'],
                 ]);
             }
         } catch (\Exception $e) {
@@ -50,6 +54,7 @@ class RekapHarianController extends Controller
             // Misalnya, Anda dapat mencatat kesalahan atau memberi tahu pengguna.
             dd($e->getMessage()); // Ini hanya contoh penanganan kesalahan sederhana
         }
+
         return redirect()->back();
     }
 }

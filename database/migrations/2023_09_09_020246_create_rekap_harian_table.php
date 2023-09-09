@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('nama_siswa');
             $table->string('nama_kelas');
             $table->string('keterangan');
+            $table->unsignedBigInteger('id_sesi_kelas');
             $table->string('tgl');
             $table->timestamps(); // Kolom untuk updated_at dan created_at
         });

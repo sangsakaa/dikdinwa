@@ -15,7 +15,8 @@ class RekapHarian extends Model
         'nama_asrama',
         'nama_kelas',
         'tgl',
-        'keterangan'
+        'keterangan',
+        'id_sesi_kelas'
 
     ];
 }

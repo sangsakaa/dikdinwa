@@ -46,8 +46,15 @@ class SiswaController extends Controller
         $rekapHarian = RekapHarian::query()
             ->where('rekap_harian.tgl', $tgl->toDateString())
             ->whereIn('keterangan', ['alfa', 'izin', 'sakit'])
-            ->get();
+            ->orderByRaw("FIELD(jenjang, 'Ula', 'Wustho', 'Ulya')")
+        ->get();
+
 
         return view('siswa.rekapHarian', compact('rekapHarian', 'tgl'));
+    }
+    public function destroyRekap()
+    {
+        DB::table('rekap_harian')->truncate();
+        return redirect()->back()->with('error', 'berhasil');
     }
 }

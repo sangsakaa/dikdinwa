@@ -23,7 +23,7 @@
             <x-heroicon-o-view-grid class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
         </x-slot>
         <x-sidebar.sublink title="Data Siswa" href="{{ route('data-siswa') }}" :active="request()->routeIs('data-siswa')" />
-        <x-sidebar.sublink title="Data Siswa" href="{{ route('rekap-siswa-harian') }}" :active="request()->routeIs('rekap-siswa-harian')" />
+        <x-sidebar.sublink title="Rekap Harian" href="{{ route('rekap-siswa-harian') }}" :active="request()->routeIs('rekap-siswa-harian')" />
     </x-sidebar.dropdown>
     <div x-transition x-show="isSidebarOpen || isSidebarHovered" class="text-sm text-gray-500">
         Pengaturan

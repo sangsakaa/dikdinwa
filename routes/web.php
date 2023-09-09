@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::get('data-siswa', [SiswaController::class, 'index'])->name('data-siswa');
     Route::get('rekap-siswa-harian', [SiswaController::class, 'RekapHarian'])->name('rekap-siswa-harian');
     Route::delete('data-siswa', [SiswaController::class, 'destroy']);
+    Route::delete('rekap-siswa-harian', [SiswaController::class, 'destroyRekap']);
 });
 
 // useless routes
