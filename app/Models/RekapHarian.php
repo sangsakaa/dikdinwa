@@ -11,16 +11,11 @@ class RekapHarian extends Model
     protected $table = "rekap_harian";
     protected $fillable = [
         'jenjang',
-        // 'nis',
-        // 'nama_siswa',
-        // 'madrasah_diniyah',
-        // 'jenis_kelamin',
-        // 'tanggal_masuk',
-        // 'nama_lembaga',
-        // 'tempat_lahir',
-        // 'tanggal_lahir',
-        // 'kota_asal',
-        // 'nama_asrama'
+        'nama_siswa',
+        'nama_asrama',
+        'nama_kelas',
+        'tgl',
+        'keterangan'
 
     ];
 }

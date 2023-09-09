@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\RekapHarian;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 
 class RekapHarianController extends Controller
 {
-    public function getData()
+    public function getDataRekap()
     {
         try {
             $urls = [
@@ -19,7 +20,6 @@ class RekapHarianController extends Controller
                 'https://ula.smedi.my.id/api/data-asrama',
                 // Tambahkan URL lainnya di sini jika diperlukan
             ];
-
             $filteredData = [];
 
             foreach ($urls as $url) {
@@ -27,63 +27,29 @@ class RekapHarianController extends Controller
                 $nis = $response->json();
 
                 // Periksa apakah ada data 'siswa' dalam respons
-                if (isset($nis['rekap_harian'])) {
-                    $filteredData = array_merge($filteredData, array_filter($nis['rekap_harian'], function ($item) {
-                        return $item['nama_lembaga'] == 'Wahidiyah';
+                if (isset($nis['dataAbsensiKelas'])) {
+                    $filteredData = array_merge($filteredData, array_filter($nis['dataAbsensiKelas'], function ($item) {
+                        return $item['jenjang'] == ['Wustho', 'Ulya', 'Ula'];
                     }));
                 }
             }
-            // Initialize the progress bar
             $progressBar = '<script>NProgress.start();</script>';
-
             foreach ($filteredData as $index => $item) {
-                // dd($item);
-
-                if (!RekapHarian::where('nis', $item['nis'])->exists()) {
-                    if (Validator::make($item, [
-                        'nis' => 'unique:siswa',
-                    ])->passes()) {
-                        RekapHarian::updateOrCreate(
-                            ['nis' => $item['nis']], // Kunci pencarian
-                            [ // Data yang akan diperbarui atau dibuat jika tidak ada yang sesuai
-                                'tempat_lahir' => $item['tempat_lahir'],
-                                'nama_siswa' => $item['nama_siswa'],
-                                'jenis_kelamin' => $item['jenis_kelamin'],
-                                'madrasah_diniyah' => $item['madrasah_diniyah'],
-                                'agama' => $item['agama'],
-                                'tanggal_masuk' => $item['tanggal_masuk'],
-                                'kota_asal' => $item['kota_asal'],
-                                'nama_lembaga' => $item['nama_lembaga'],
-                                'tanggal_lahir' => $item['tanggal_lahir'],
-                                // Tambahkan kolom-kolom lain sesuai kebutuhan
-                            ]
-                        );
-                    } else {
-                        // Handle validation failure
-                        // Anda dapat menggunakan message bag untuk mendapatkan error validasi dan bertindak sesuai
-                        $errors = Validator::make($item, [
-                            'nis' => 'unique:siswa',
-                        ])->errors();
-                        // Anda dapat menambahkan pesan ke sesi untuk ditampilkan kepada pengguna atau mencatat error
-                        Session::flash('error', 'Validasi gagal untuk item: ' . json_encode($item) . ' dengan error: ' . json_encode($errors));
-                    }
-                }
-
-                // Calculate the progress percentage
-                $progress = ($index + 1) / count($filteredData) * 100;
-                // Update the progress bar
-                $progressBar .= "<script>NProgress.set($progress);</script>";
+                RekapHarian::create([
+                    'jenjang' => $item['jenjang'],
+                    'nama_asrama' => $item['nama_asrama'],
+                    'nama_siswa' => $item['nama_siswa'],
+                    'nama_kelas' => $item['nama_kelas'],
+                    'keterangan' => $item['keterangan'],
+                    'tgl' => $item['tgl'],
+                ]);
             }
-
-            // Finish the progress bar
-            $progressBar = '<script>NProgress.done();</script>';
-
-            return redirect()->back()->with('progressBar', $progressBar);
         } catch (\Exception $e) {
-            // Handle network error
-            Session::flash('error', 'An error occurred while fetching data from the API: ' . $e->getMessage());
-
-            return redirect()->back();
+            // Tangani kesalahan umum, seperti masalah koneksi, dengan cara yang sesuai
+            // Anda dapat menambahkan kode penanganan kesalahan di sini
+            // Misalnya, Anda dapat mencatat kesalahan atau memberi tahu pengguna.
+            dd($e->getMessage()); // Ini hanya contoh penanganan kesalahan sederhana
         }
+        return redirect()->back();
     }
 }

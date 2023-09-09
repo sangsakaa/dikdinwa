@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ApiSiswaController;
+use App\Http\Controllers\Api\RekapHarianController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SiswaController;
@@ -32,7 +33,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/Sync', [ApiSiswaController::class, 'setting'])->name('Sync');
     Route::get('/Syn', [ApiSiswaController::class, 'getData']);
+    Route::get('/Syn-rekap-harian', [RekapHarianController::class, 'getDataRekap']);
     Route::get('data-siswa', [SiswaController::class, 'index'])->name('data-siswa');
+    Route::get('rekap-siswa-harian', [SiswaController::class, 'RekapHarian'])->name('rekap-siswa-harian');
     Route::delete('data-siswa', [SiswaController::class, 'destroy']);
 });
 

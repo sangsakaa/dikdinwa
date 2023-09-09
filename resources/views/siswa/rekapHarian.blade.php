@@ -1,0 +1,65 @@
+<x-app-layout>
+  <x-slot name="header">
+    <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+      <h2 class="text-xl font-semibold leading-tight">
+
+        @section('title', ' | Data Siswa' )
+      </h2>
+      <form action="/data-siswa" method="post">
+        @method('delete')
+        @csrf
+        <x-button variant="red" class="justify-center max-w-xs gap-2">
+          <x-icons.github class="w-6 h-6" aria-hidden="true" />
+          <span>Reset Data Siswa</span>
+        </x-button>
+      </form>
+
+    </div>
+  </x-slot>
+  <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
+    <div class=" bg-white  justify-between ">
+      <div class=" py-1">
+        <div class="  ">
+          <form action="/rekap-siswa-harian" method="get" class="mr-auto">
+            <input type="date" name="tanggal" class="py-1 dark:bg-dark-bg" value="{{ $tgl->toDateString() }}">
+            <button class=" bg-red-600 py-1 dark:bg-purple-600 mt-1 my-1 rounded-sm hover:bg-purple-600 text-white px-4 ">
+              Pilih Tanggal
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class=" overflow-auto">
+        <table class=" w-full">
+          <thead>
+            <tr class=" border text-sm">
+              <th class=" border py-2">No</th>
+              <th class=" border">Nama Siswa</th>
+              <th class=" border">Ket</th>
+              <th class=" border">Jenjang</th>
+              <th class=" border">Asrama</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            @if($rekapHarian->count() != null)
+            @foreach ($rekapHarian as $siswa)
+            <tr class=" text-sm even:bg-gray-100 hover:bg-green-100">
+              <td class="py-1 border text-center">{{ $loop->iteration }}</td>
+              <td class=" border text-left  capitalize">{{ strtolower($siswa->nama_siswa) }}</td>
+              <td class=" border text-center">{{ $siswa->keterangan }}</td>
+              <td class=" border text-center">{{ $siswa->jenjang }}</td>
+              <td class=" border text-center">{{ $siswa->nama_asrama }}</td>
+            </tr>
+            @endforeach
+            @else
+            <tr>
+              <td colspan="5" class=" border  text-red-700 text-center font-semibold uppercase">data tidak ditemukan</td>
+            </tr>
+            @endif
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</x-app-layout>

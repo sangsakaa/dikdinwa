@@ -8,10 +8,15 @@
     <div class="py-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class=" flex grid-cols-1 p-6 text-gray-900">
+                <div class=" flex grid-cols-1 p-6 text-gray-900 gap-2">
                     <form action="/Syn" method="get">
                         <button class=" bg-red-600 px-4 py-1 text-center text-white font-semibold">
                             Syn
+                        </button>
+                    </form>
+                    <form action="/Syn-rekap-harian" method="get">
+                        <button class=" bg-red-600 px-4 py-1 text-center text-white font-semibold">
+                            Syn Rekap Harian
                         </button>
                     </form>
                     @if (Session::has('error'))
