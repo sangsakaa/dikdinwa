@@ -20,7 +20,8 @@ class Siswa extends Model
         'tempat_lahir',
         'tanggal_lahir',
         'kota_asal',
-        // 'nama_asrama'
+        'nama_asrama',
+        'nama_kelas'
         
     ];
 }

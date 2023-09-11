@@ -17,7 +17,8 @@ class SiswaController extends Controller
 
         $dataSiswa = Siswa::query()
             // ->whereIn('madrasah_diniyah', ['Ulya', 'Wustho', 'Ula'])
-            ->orderby('madrasah_diniyah')
+
+            ->orderByRaw("FIELD(madrasah_diniyah, 'Ula', 'Wustho', 'Ulya')")
             ->orderby('nis');
         if (request('cari')) {
             $dataSiswa->where('nama_siswa', 'like', '%' . request('cari') . '%');

@@ -14,20 +14,21 @@ class ApiSiswaController extends Controller
 {
     public function getData()
     {
+        Siswa::truncate();
         try {
             $urls = [
-                'https://wustho.smedi.my.id/api/siswa',
-                'https://ulya.smedi.my.id/api/siswa',
-                'https://ula.smedi.my.id/api/siswa',
+                'https://wustho.smedi.my.id/api/data-Kelas',
+                'https://ulya.smedi.my.id/api/data-Kelas',
+                'https://ula.smedi.my.id/api/data-Kelas',
                 // Tambahkan URL lainnya di sini jika diperlukan
             ];
-
+            
             $filteredData = [];
 
             foreach ($urls as $url) {
                 $response = Http::get($url);
                 $nis = $response->json();
-
+                // dd($nis);
                 // Periksa apakah ada data 'siswa' dalam respons
                 if (isset($nis['siswa'])) {
                     $filteredData = array_merge($filteredData, array_filter($nis['siswa'], function ($item) {
@@ -57,6 +58,8 @@ class ApiSiswaController extends Controller
                                 'kota_asal' => $item['kota_asal'],
                                 'nama_lembaga' => $item['nama_lembaga'],
                                 'tanggal_lahir' => $item['tanggal_lahir'],
+                                'nama_asrama' => $item['nama_asrama'],
+                                'nama_kelas' => $item['nama_kelas'],
                                 // Tambahkan kolom-kolom lain sesuai kebutuhan
                             ]
                         );
