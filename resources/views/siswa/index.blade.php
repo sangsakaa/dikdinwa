@@ -31,15 +31,15 @@
             <tr class=" border text-sm">
               <th class=" border py-2">No</th>
               <th class=" border">NIS</th>
-              <th class=" border">Nama Siswa</th>
+              <th class=" border">Nama</th>
               <th class=" border">JK</th>
               <!-- <th class=" border">Asrama</th> -->
               <!-- <th class=" border">Tempat Lahir</th> -->
               <!-- <th class=" border">Tanggal Lahir</th> -->
               <!-- <th class=" border">Kota Asal</th> -->
-              <!-- <th class=" border">Nama Lembaga</th> -->
+              <th class=" border">Asrama</th>
               <th class=" border">Jenjang</th>
-              <!-- <th class=" border">Tanggal Masuk</th> -->
+              <th class=" border">Kls</th>
             </tr>
           </thead>
           <tbody>
@@ -48,15 +48,15 @@
             <tr class=" text-sm even:bg-gray-100 hover:bg-green-100">
               <td class="py-1 border text-center">{{ $loop->iteration }}</td>
               <td class=" border text-center">{{ $siswa->nis }}</td>
-              <td class=" border text-left">{{ $siswa->nama_siswa }}</td>
+              <td class=" border text-left capitalize">{{ strtolower($siswa->nama_siswa) }}</td>
               <td class=" border text-center">{{ $siswa->jenis_kelamin }}</td>
               <!-- <td class=" border text-center">{{ $siswa->nama_asrama }}</td> -->
               <!-- <td class=" border text-center">{{ $siswa->tempat_lahir }}</td> -->
               <!-- <td class=" border text-center">{{ $siswa->tanggal_lahir }}</td> -->
               <!-- <td class=" border text-center">{{ $siswa->kota_asal }}</td> -->
-              <!-- <td class=" border text-center">{{ $siswa->nama_lembaga }}</td> -->
+              <td class=" border text-center">{{ $siswa->nama_asrama }}</td>
               <td class=" border text-center">{{ $siswa->madrasah_diniyah }}</td>
-              <!-- <td class=" border text-center">{{ $siswa->tanggal_masuk }}</td> -->
+              <td class=" border text-center">{{ $siswa->nama_kelas }}</td>
             </tr>
             @endforeach
             @else
@@ -65,7 +65,7 @@
             </tr>
             @endif
             <tr>
-              <td colspan="5" class=" py-1">
+              <td colspan="7" class=" py-1">
                 {{$dataSiswa}}
               </td>
             </tr>
