@@ -5,14 +5,24 @@
 
         @section('title', ' | Data Siswa' )
       </h2>
-      <form action="/data-siswa" method="post">
-        @method('delete')
-        @csrf
-        <x-button variant="red" class="justify-center max-w-xs gap-2">
-          <x-icons.github class="w-6 h-6" aria-hidden="true" />
-          <span>Reset Data Siswa</span>
-        </x-button>
-      </form>
+      <div class=" flex gap-2 justify-end">
+        <form action="/data-siswa" method="post">
+          @method('delete')
+          @csrf
+          <x-button variant="red" class="justify-center max-w-xs gap-2">
+            <x-icons.github class="w-6 h-6" aria-hidden="true" />
+            <span>Reset Data Siswa</span>
+          </x-button>
+        </form>
+        <div>
+          <form action="/Syn" method="get">
+            <x-button variant="red" class="justify-center max-w-xs gap-2">
+              <x-icons.github class="w-6 h-6" aria-hidden="true" />
+              <span>Syn</span>
+            </x-button>
+          </form>
+        </div>
+      </div>
 
     </div>
   </x-slot>

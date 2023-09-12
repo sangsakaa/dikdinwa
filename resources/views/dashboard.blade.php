@@ -152,51 +152,8 @@
                         }
                     });
                 </script>
-                <script>
-                    document.addEventListener("DOMContentLoaded", function() {
-                        var data = @json($rekapBulan);
 
-                        var labels = [];
-                        var jumlahSakit = [];
-                        var jumlahIzin = [];
-                        var jumlahAlfa = [];
 
-                        data.forEach(function(item) {
-                            labels.push(item.tahun + '-' + item.bulan);
-                            jumlahSakit.push(item.jumlah_sakit);
-                            jumlahIzin.push(item.jumlah_izin);
-                            jumlahAlfa.push(item.jumlah_alfa);
-                        });
-
-                        var ctx = document.getElementById('canva').getContext('2d');
-                        var myChart = new Chart(ctx, {
-                            type: 'bar',
-                            data: {
-                                labels: labels,
-                                datasets: [{
-                                    label: ' Sakit',
-                                    data: jumlahSakit,
-                                    borderColor: 'rgb(255, 99, 132)',
-                                    fill: false,
-                                }, {
-                                    label: ' Izin',
-                                    data: jumlahIzin,
-                                    borderColor: 'rgb(75, 192, 192)',
-                                    fill: false,
-                                }, {
-                                    label: ' Alfa',
-                                    data: jumlahAlfa,
-                                    borderColor: 'rgb(54, 162, 235)',
-                                    fill: false,
-                                }]
-                            },
-                            options: {
-                                responsive: true,
-                                maintainAspectRatio: false,
-                            }
-                        });
-                    });
-                </script>
 
 
 
