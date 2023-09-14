@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ApiGuruController;
 use App\Http\Controllers\Api\ApiSiswaController;
 use App\Http\Controllers\Api\RekapHarianController;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,10 @@ Route::middleware('auth')->group(function () {
     Route::get('rekap-siswa-harian', [SiswaController::class, 'RekapHarian'])->name('rekap-siswa-harian');
     Route::delete('data-siswa', [SiswaController::class, 'destroy']);
     Route::delete('rekap-siswa-harian', [SiswaController::class, 'destroyRekap']);
+
+
+
+    Route::get('data-guru', [ApiGuruController::class, 'getDataGuru']);
 });
 
 // useless routes
