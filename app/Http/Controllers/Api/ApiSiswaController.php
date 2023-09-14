@@ -17,9 +17,9 @@ class ApiSiswaController extends Controller
         Siswa::truncate();
         try {
             $urls = [
-                'https://wustho.smedi.my.id/api/data-Kelas',
-                'https://ulya.smedi.my.id/api/data-Kelas',
-                'https://ula.smedi.my.id/api/data-Kelas',
+                'https://wustho.smedi.my.id/api/getDataSiswa',
+                'https://ulya.smedi.my.id/api/getDataSiswa',
+                'https://ula.smedi.my.id/api/getDataSiswa',
                 // Tambahkan URL lainnya di sini jika diperlukan
             ];
             
