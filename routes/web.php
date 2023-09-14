@@ -35,7 +35,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/Sync', [ApiSiswaController::class, 'setting'])->name('Sync');
     Route::get('/Syn', [ApiSiswaController::class, 'getData']);
     Route::get('/Syn-rekap-harian', [RekapHarianController::class, 'getDataRekap']);
-    Route::get('data-siswa', [SiswaController::class, 'index'])->name('data-siswa');
     Route::get('rekap-siswa-harian', [SiswaController::class, 'RekapHarian'])->name('rekap-siswa-harian');
     Route::delete('data-siswa', [SiswaController::class, 'destroy']);
     Route::delete('rekap-siswa-harian', [SiswaController::class, 'destroyRekap']);
