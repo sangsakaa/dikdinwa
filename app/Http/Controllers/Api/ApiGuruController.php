@@ -12,9 +12,9 @@ class ApiGuruController extends Controller
     {
 
         $urls = [
-            "https://wustho.smedi.my.id/api/siswa",
-            "https://ulya.smedi.my.id/api/siswa",
-            "https://ula.smedi.my.id/api/siswa",
+            "https://wustho.smedi.my.id/api/getDataSiswa",
+            "https://ulya.smedi.my.id/api/getDataSiswa",
+            "https://ula.smedi.my.id/api/getDataSiswa",
         ];
 
         $siswa = [];
