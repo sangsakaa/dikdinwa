@@ -9,27 +9,31 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class=" flex grid-cols-2 sm:grid-cols-2 p-6 text-gray-900 gap-2">
-                    <table class="table">
+                    <table class="table w-full">
                         <thead>
                             <tr>
                                 <th>Nama</th>
-                                <th>Alamat</th>
+                                <th>Status</th>
                                 <!-- Tambahkan kolom-kolom lain sesuai dengan data dari API -->
                             </tr>
                         </thead>
                         <tbody>
-                            <ul>
-                                @foreach ($guru as $dataSiswa)
-                                <li>
-                                    <h2>Siswa dari <span class=" text-red-600 font-semibold uppercase"></span></h2>
-                                    <ul>
-                                        @foreach ($dataSiswa['siswa'] as $siswaItem)
-                                        <li>{{ $siswaItem['nama_siswa'] }} - {{ $siswaItem['nis'] }}</li>
-                                        @endforeach
-                                    </ul>
-                                </li>
-                                @endforeach
-                            </ul>
+
+                            @foreach ($guru as $dataSiswa)
+                            @foreach ($dataSiswa['guru'] as $siswaItem)
+                            <tr>
+                                <td>
+                                    {{ $siswaItem['nama_guru'] }}
+
+                                </td>
+                                <td>
+
+                                    {{ $siswaItem['status'] }}
+                                </td>
+                            </tr>
+                            @endforeach
+                            @endforeach
+
                         </tbody>
                     </table>
 
