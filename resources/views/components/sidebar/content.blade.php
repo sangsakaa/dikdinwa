@@ -18,7 +18,7 @@
     <div x-transition x-show="isSidebarOpen || isSidebarHovered" class="text-sm text-gray-500">
         Info Penting
     </div>
-    <x-sidebar.dropdown title="Report" :active="Str::startsWith(request()->route()->uri(), 'buttons')">
+    <x-sidebar.dropdown title="Master" :active="Str::startsWith(request()->route()->uri(), 'buttons')">
         <x-slot name="icon">
             <x-heroicon-o-view-grid class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
         </x-slot>
