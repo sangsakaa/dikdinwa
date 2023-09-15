@@ -56,7 +56,7 @@ class RekapHarianController extends Controller
                 if (isset($nis['dataAbsensiKelas'])) {
                     foreach ($nis['dataAbsensiKelas'] as $item) {
                         // Filter berdasarkan jenjang 'Wustho' atau 'Ulya'
-                        if (in_array($item['jenjang'], ['Ulya', 'Wustho'])) {
+                        if (in_array($item['jenjang'], ['Ulya', 'Wustho', 'Ula'])) {
                             $filteredData[] = $item;
                         }
                     }
