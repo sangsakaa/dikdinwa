@@ -17,18 +17,19 @@ class ApiGuruController extends Controller
             "https://ula.smedi.my.id/api/getDataGuru",
         ];
 
-        $siswa = [];
+        $guru = [];
 
         foreach ($urls as $url) {
             $response = Http::get($url);
-
+            
             if ($response->successful()) {
-                $siswa[] = $response->json();
+                $guru[] = $response->json();
+                
             } else {
                 // Handle error for this URL, e.g., log or throw an exception
             }
         }
 
-        return view('guru.data', compact('siswa'));
+        return view('guru.data', compact('guru'));
     }
 }
