@@ -27,31 +27,41 @@ class WelcomeController extends Controller
             ->get();
         // $tgl = $request->tgl ? Carbon::parse($request->tgl) : now();
         $rekapHarian = RekapHarian::query()
-        ->whereIn('keterangan', ['alfa', 'izin', 'sakit', 'hadir'])
+            ->whereIn('keterangan', ['alfa', 'izin', 'sakit'])
+            ->whereMonth('tgl', now()->month) // Filter berdasarkan bulan saat ini
         ->orderByRaw("FIELD(jenjang, 'Ula', 'Wustho', 'Ulya')")
-        ->groupBy('jenjang')
-        ->where('tgl', date('Y-m-d'))
+            ->groupBy('jenjang', 'tgl') // Mengelompokkan berdasarkan jenjang dan tgl
         ->select(
             'jenjang',
+            'tgl',
             DB::raw('SUM(CASE WHEN keterangan = "sakit" THEN 1 ELSE 0 END) AS jumlah_sakit'),
             DB::raw('SUM(CASE WHEN keterangan = "izin" THEN 1 ELSE 0 END) AS jumlah_izin'),
             DB::raw('SUM(CASE WHEN keterangan = "alfa" THEN 1 ELSE 0 END) AS jumlah_alfa')
         )
-        ->get();
-        $rekapBulan = RekapHarian::query()
-        ->whereIn('keterangan', ['alfa', 'izin', 'sakit', 'hadir'])
-        ->orderByRaw("FIELD(jenjang, 'Ula', 'Wustho', 'Ulya')")
-        ->groupBy(DB::raw('YEAR(tgl)'), DB::raw('MONTH(tgl)'), 'jenjang') // Mengelompokkan berdasarkan tahun, bulan, dan jenjang
-        ->select(
-            DB::raw('YEAR(tgl) AS tahun'),
-            DB::raw('MONTH(tgl) AS bulan'),
-            'jenjang',
-            DB::raw('SUM(CASE WHEN keterangan = "sakit" THEN 1 ELSE 0 END) AS jumlah_sakit'),
-            DB::raw('SUM(CASE WHEN keterangan = "izin" THEN 1 ELSE 0 END) AS jumlah_izin'),
-            DB::raw('SUM(CASE WHEN keterangan = "alfa" THEN 1 ELSE 0 END) AS jumlah_alfa')
-        )
+            ->orderby('jenjang')
+            ->orderby('tgl')
         ->get();
 
+
+
+
+
+        $rekapBulan = RekapHarian::query()
+            ->whereIn('keterangan', ['alfa', 'izin', 'sakit'])
+            ->whereIn('jenjang', ['Wustho', 'Ulya', 'Ula'])
+            ->whereYear('tgl', now()->year) // Filter berdasarkan tahun saat ini
+            ->whereMonth('tgl', now()->month) // Filter berdasarkan bulan saat ini
+            ->orderByRaw("FIELD(jenjang, 'Ula', 'Wustho', 'Ulya')")
+        ->select(
+            'jenjang',
+            DB::raw('YEAR(tgl) AS tahun'),
+            DB::raw('MONTH(tgl) AS bulan'),
+            DB::raw('SUM(CASE WHEN keterangan = "sakit" THEN 1 ELSE 0 END) AS jumlah_sakit'),
+            DB::raw('SUM(CASE WHEN keterangan = "izin" THEN 1 ELSE 0 END) AS jumlah_izin'),
+            DB::raw('SUM(CASE WHEN keterangan = "alfa" THEN 1 ELSE 0 END) AS jumlah_alfa')
+        )
+            ->groupBy('jenjang', DB::raw('YEAR(tgl)'), DB::raw('MONTH(tgl)'))
+        ->get();
 
 
         // dd($rekapBulan);

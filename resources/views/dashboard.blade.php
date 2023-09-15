@@ -15,12 +15,14 @@
         <div>
             <div class=" bg-white   ">
                 <span>Dalam Progress Pengembangan</span>
-                <div class=" w-full grid grid-cols-1 sm:grid-cols-2 gap-2 ">
-                    <div>
-                        <canvas id="grafik-siswa-id"></canvas>
-                    </div>
-                    <div>
-                        <canvas id="grafik-siswa"></canvas>
+                <div class=" w-full grid grid-cols-1 sm:grid-cols-1 gap-2 ">
+                    <div class=" grid grid-cols-2">
+                        <div>
+                            <canvas id="grafik-siswa-id"></canvas>
+                        </div>
+                        <div>
+                            <canvas id="grafik-siswa"></canvas>
+                        </div>
                     </div>
                     <div>
                         <canvas id="barChart"></canvas>
@@ -103,7 +105,7 @@
                     var data = @json($rekapHarian); // Mengambil data dari Blade
 
                     var jenjang = data.map(function(item) {
-                        return item.jenjang;
+                        return item.tgl + ' ' + item.jenjang;
                     });
 
                     var jumlahSakit = data.map(function(item) {
@@ -154,9 +156,70 @@
                 </script>
 
 
+            </div>
+            <div>
+                <div class="p-4">
+                    <div class="bg-white rounded-lg shadow-md">
+                        <div class="p-4">
+                            <h2 class="text-xl font-semibold mb-4">Grafik Rekap Bulanan</h2>
+                            <div class="flex flex-col space-y-4">
+                                <canvas id="rekapBulan"></canvas>
 
+                                <script>
+                                    var rekapBulanData = <?php echo json_encode($rekapBulan); ?>;
+                                    var labels = [];
+                                    var jumlahSakit = [];
+                                    var jumlahIzin = [];
+                                    var jumlahAlfa = [];
 
+                                    // Mengambil data dari PHP dan mempersiapkan data untuk grafik
+                                    rekapBulanData.forEach(function(item) {
+                                        labels.push(item.jenjang + ' - ' + item.tahun + '-' + item.bulan);
+                                        jumlahSakit.push(item.jumlah_sakit);
+                                        jumlahIzin.push(item.jumlah_izin);
+                                        jumlahAlfa.push(item.jumlah_alfa);
+                                    });
 
+                                    var ctx = document.getElementById('rekapBulan').getContext('2d');
+
+                                    var chart = new Chart(ctx, {
+                                        type: 'bar',
+                                        data: {
+                                            labels: labels,
+                                            datasets: [{
+                                                label: 'Jumlah Sakit',
+                                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                                borderColor: 'rgba(75, 192, 192, 1)',
+                                                borderWidth: 1,
+                                                data: jumlahSakit
+                                            }, {
+                                                label: 'Jumlah Izin',
+                                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                                borderColor: 'rgba(255, 99, 132, 1)',
+                                                borderWidth: 1,
+                                                data: jumlahIzin
+                                            }, {
+                                                label: 'Jumlah Alfa',
+                                                backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                                                borderColor: 'rgba(255, 159, 64, 1)',
+                                                borderWidth: 1,
+                                                data: jumlahAlfa
+                                            }]
+                                        },
+                                        options: {
+                                            scales: {
+                                                y: {
+                                                    beginAtZero: true
+                                                }
+                                            }
+                                        }
+                                    });
+                                </script>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
 
             </div>
 
