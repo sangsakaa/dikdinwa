@@ -46,7 +46,7 @@ class SiswaController extends Controller
         }
         $rekapHarian = RekapHarian::query()
             ->where('rekap_harian.tgl', $tgl->toDateString())
-            ->whereIn('keterangan', ['alfa', 'izin', 'sakit'])
+            ->whereIn('keterangan', ['alfa', 'izin', 'sakit', 'hadir'])
             ->orderByRaw("FIELD(jenjang, 'Ula', 'Wustho', 'Ulya')")
             ->orderby('nama_kelas')
             ->orderby('nama_siswa')

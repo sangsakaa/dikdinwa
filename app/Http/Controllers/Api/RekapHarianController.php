@@ -34,7 +34,7 @@ class RekapHarianController extends Controller
 
                 while (!$success && $retry < $maxRetries) {
                     try {
-                        // set_time_limit(200);
+                        set_time_limit(200);
                         $response = Http::timeout(30)->retry($maxRetries, $retryDelaySeconds)->get($url);
                         $nis = $response->json();
                         $success = true;

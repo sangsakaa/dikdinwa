@@ -36,6 +36,7 @@
                                     <td class=" border px-1 text-center">{{$list->jumlah_sakit}}</td>
                                     <td class=" border px-1 text-center">{{$list->jumlah_izin}}</td>
                                     <td class=" border px-1 text-center">{{$list->jumlah_alfa}}</td>
+                                    <td class=" border px-1 text-center">{{$list->jumlah_sesi_per_jenjang}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

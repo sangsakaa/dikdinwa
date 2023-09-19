@@ -132,21 +132,20 @@ class ApiSiswaController extends Controller
     {
         $startDate = Carbon::now()->subWeek()->startOfWeek();
         $asramaTerbanyaAlfa = RekapHarian::query()
-            ->whereIn('keterangan', ['alfa', 'izin', 'sakit'])
+            ->whereIn('keterangan', ['alfa', 'izin', 'sakit', 'hadir'])
             ->whereMonth('tgl', now()->month) // Filter berdasarkan bulan saat ini
             ->orderByRaw("FIELD(jenjang, 'Ula', 'Wustho', 'Ulya')")
-            ->groupBy('jenjang') // Mengelompokkan berdasarkan jenjang dan tgl
+            ->groupBy('jenjang') // Mengelompokkan berdasarkan jenjang
             ->select(
                 'jenjang',
                 DB::raw('SUM(CASE WHEN keterangan = "sakit" THEN 1 ELSE 0 END) AS jumlah_sakit'),
                 DB::raw('SUM(CASE WHEN keterangan = "izin" THEN 1 ELSE 0 END) AS jumlah_izin'),
-                DB::raw('SUM(CASE WHEN keterangan = "alfa" THEN 1 ELSE 0 END) AS jumlah_alfa')
-            )
-
-            ->where('tgl', '>=', $startDate)
-            ->orderby('jenjang')
-            ->orderby('tgl')
+            DB::raw('SUM(CASE WHEN keterangan = "alfa" THEN 1 ELSE 0 END) AS jumlah_alfa'),
+            DB::raw('COUNT(*) AS jumlah_sesi_per_jenjang') // Menambah jumlah sesi per jenjang
+        )
+            ->orderBy('jenjang')
             ->get();
+
         return view('siswa.grafik', compact('asramaTerbanyaAlfa', 'startDate'));
             
     }
