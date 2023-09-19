@@ -161,6 +161,9 @@
                     var jumlahAlfa = data.map(function(item) {
                         return item.jumlah_alfa;
                     });
+                    var jumlahHadir = data.map(function(item) {
+                        return item.jumlah_hadir;
+                    });
 
                     var ctx = document.getElementById('barChart').getContext('2d');
                     var myChart = new Chart(ctx, {
@@ -168,25 +171,34 @@
                         data: {
                             labels: jenjang,
                             datasets: [{
-                                label: ' Sakit',
-                                data: jumlahSakit,
-                                backgroundColor: 'rgba(75, 192, 192, 0.2)', // Warna latar belakang batang
-                                borderColor: 'rgba(75, 192, 192, 1)', // Warna batang
-                                borderWidth: 1
-                            }, {
-                                label: ' Izin',
-                                data: jumlahIzin,
-                                backgroundColor: 'rgba(255, 206, 86, 0.2)', // Warna latar belakang batang
-                                borderColor: 'rgba(255, 206, 86, 1)', // Warna batang
-                                borderWidth: 1
-                            }, {
-                                label: ' Alfa',
-                                data: jumlahAlfa,
+                                    label: ' Sakit',
+                                    data: jumlahSakit,
+                                    backgroundColor: 'rgba(75, 192, 192, 0.2)', // Warna latar belakang batang
+                                    borderColor: 'rgba(75, 192, 192, 1)', // Warna batang
+                                    borderWidth: 1
+                                }, {
+                                    label: ' Izin',
+                                    data: jumlahIzin,
+                                    backgroundColor: 'rgba(255, 206, 86, 0.2)', // Warna latar belakang batang
+                                    borderColor: 'rgba(255, 206, 86, 1)', // Warna batang
+                                    borderWidth: 1
+                                }, {
+                                    label: ' Alfa',
+                                    data: jumlahAlfa,
 
-                                backgroundColor: 'rgba(255, 99, 132, 0.2)', // Warna latar belakang batang
-                                borderColor: 'rgba(255, 99, 132, 1)', // Warna batang
-                                borderWidth: 1
-                            }]
+                                    backgroundColor: 'rgba(255, 99, 132, 0.2)', // Warna latar belakang batang
+                                    borderColor: 'rgba(255, 99, 132, 1)', // Warna batang
+                                    borderWidth: 1
+                                },
+                                {
+                                    label: ' Hadir',
+                                    data: jumlahHadir,
+
+                                    backgroundColor: 'rgba(0, 236, 255, 0.5)',
+                                    borderColor: 'rgba(0, 236, 255, 1)',
+                                    borderWidth: 1
+                                }
+                            ]
                         },
                         options: {
                             scales: {
@@ -247,6 +259,7 @@
                         var jumlahSakit = [];
                         var jumlahIzin = [];
                         var jumlahAlfa = [];
+                        var jumlahHadir = [];
 
                         // Mengambil data dari PHP dan mempersiapkan data untuk grafik
                         rekapBulanData.forEach(function(item) {
@@ -254,6 +267,7 @@
                             jumlahSakit.push(item.jumlah_sakit);
                             jumlahIzin.push(item.jumlah_izin);
                             jumlahAlfa.push(item.jumlah_alfa);
+                            jumlahHadir.push(item.jumlah_hadir);
                         });
 
                         var ctx = document.getElementById('rekapBulan').getContext('2d');
@@ -263,25 +277,34 @@
                             data: {
                                 labels: labels,
                                 datasets: [{
-                                    label: 'Jumlah Sakit',
-                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                    borderColor: 'rgba(75, 192, 192, 1)',
-                                    borderWidth: 1,
-                                    data: jumlahSakit
-                                }, {
-                                    label: 'Jumlah Izin',
-                                    backgroundColor: 'rgba(255, 159, 64, 0.2)',
-                                    borderColor: 'rgba(255, 159, 64, 1)',
-                                    borderWidth: 1,
-                                    data: jumlahIzin
-                                }, {
-                                    label: 'Jumlah Alfa',
+                                        label: 'Jumlah Sakit',
+                                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                        borderColor: 'rgba(75, 192, 192, 1)',
+                                        borderWidth: 1,
+                                        data: jumlahSakit
+                                    }, {
+                                        label: 'Jumlah Izin',
+                                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                                        borderColor: 'rgba(255, 159, 64, 1)',
+                                        borderWidth: 1,
+                                        data: jumlahIzin
+                                    }, {
+                                        label: 'Jumlah Alfa',
 
-                                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                                    borderColor: 'rgba(255, 99, 132, 1)',
-                                    borderWidth: 1,
-                                    data: jumlahAlfa
-                                }]
+                                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                        borderColor: 'rgba(255, 99, 132, 1)',
+                                        borderWidth: 1,
+                                        data: jumlahAlfa
+                                    },
+                                    {
+                                        label: 'Jumlah Hadir',
+
+                                        backgroundColor: 'rgba(0, 236, 255, 0.5)',
+                                        borderColor: 'rgba(0, 236, 255, 1)',
+                                        borderWidth: 1,
+                                        data: jumlahHadir
+                                    }
+                                ]
                             },
                             options: {
                                 scales: {

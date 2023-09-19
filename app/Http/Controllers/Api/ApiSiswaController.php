@@ -141,6 +141,7 @@ class ApiSiswaController extends Controller
                 DB::raw('SUM(CASE WHEN keterangan = "sakit" THEN 1 ELSE 0 END) AS jumlah_sakit'),
                 DB::raw('SUM(CASE WHEN keterangan = "izin" THEN 1 ELSE 0 END) AS jumlah_izin'),
             DB::raw('SUM(CASE WHEN keterangan = "alfa" THEN 1 ELSE 0 END) AS jumlah_alfa'),
+            DB::raw('SUM(CASE WHEN keterangan = "hadir" THEN 1 ELSE 0 END) AS jumlah_hadir'),
             DB::raw('COUNT(*) AS jumlah_sesi_per_jenjang') // Menambah jumlah sesi per jenjang
         )
             ->orderBy('jenjang')

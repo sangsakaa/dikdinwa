@@ -30,7 +30,8 @@ class WelcomeController extends Controller
         // $tgl = $request->tgl ? Carbon::parse($request->tgl) : now();
         $startDate = Carbon::now()->subWeek()->startOfWeek();
         $rekapHarian = RekapHarian::query()
-            ->whereIn('keterangan', ['alfa', 'izin', 'sakit'])
+
+            ->whereIn('keterangan', ['alfa', 'izin', 'sakit', 'hadir'])
             ->whereMonth('tgl', now()->month) // Filter berdasarkan bulan saat ini
         ->orderByRaw("FIELD(jenjang, 'Ula', 'Wustho', 'Ulya')")
             ->groupBy('jenjang', 'tgl') // Mengelompokkan berdasarkan jenjang dan tgl
@@ -39,7 +40,8 @@ class WelcomeController extends Controller
             'tgl',
             DB::raw('SUM(CASE WHEN keterangan = "sakit" THEN 1 ELSE 0 END) AS jumlah_sakit'),
             DB::raw('SUM(CASE WHEN keterangan = "izin" THEN 1 ELSE 0 END) AS jumlah_izin'),
-            DB::raw('SUM(CASE WHEN keterangan = "alfa" THEN 1 ELSE 0 END) AS jumlah_alfa')
+            DB::raw('SUM(CASE WHEN keterangan = "alfa" THEN 1 ELSE 0 END) AS jumlah_alfa'),
+            DB::raw('SUM(CASE WHEN keterangan = "hadir" THEN 1 ELSE 0 END) AS jumlah_hadir')
         )
             ->where('tgl', '>=', $startDate)
             ->orderby('jenjang')
@@ -47,7 +49,7 @@ class WelcomeController extends Controller
         ->get();
         // dd($rekapHarian);
         $rekapBulan = RekapHarian::query()
-            ->whereIn('keterangan', ['alfa', 'izin', 'sakit'])
+            ->whereIn('keterangan', ['alfa', 'izin', 'sakit', 'hadir'])
             ->whereIn('jenjang', ['Wustho', 'Ulya', 'Ula'])
             ->whereYear('tgl', now()->year) // Filter berdasarkan tahun saat ini
             ->whereMonth('tgl', now()->month) // Filter berdasarkan bulan saat ini
@@ -58,14 +60,18 @@ class WelcomeController extends Controller
             DB::raw('MONTH(tgl) AS bulan'),
             DB::raw('SUM(CASE WHEN keterangan = "sakit" THEN 1 ELSE 0 END) AS jumlah_sakit'),
             DB::raw('SUM(CASE WHEN keterangan = "izin" THEN 1 ELSE 0 END) AS jumlah_izin'),
-            DB::raw('SUM(CASE WHEN keterangan = "alfa" THEN 1 ELSE 0 END) AS jumlah_alfa')
+            DB::raw('SUM(CASE WHEN keterangan = "alfa" THEN 1 ELSE 0 END) AS jumlah_alfa'),
+            DB::raw('SUM(CASE WHEN keterangan = "hadir" THEN 1 ELSE 0 END) AS jumlah_hadir'),
+            DB::raw('(SUM(CASE WHEN keterangan = "hadir" THEN 1 ELSE 0 END) / SUM(CASE WHEN keterangan = "hadir" THEN 1 ELSE 0 END)) * 100 AS presentase_hadir')
         )
             ->groupBy('jenjang', DB::raw('YEAR(tgl)'), DB::raw('MONTH(tgl)'))
         ->get();
 
+
         // dd($rekapBulan);
         $asramaTerbanyaAlfa = RekapHarian::query()
-        ->whereIn('keterangan', ['alfa', 'izin', 'sakit'])
+
+            ->whereIn('keterangan', ['alfa', 'izin', 'sakit', 'hadir'])
             ->whereMonth('tgl', now()->month) // Filter berdasarkan bulan saat ini
             // ->orderByRaw("FIELD(jenjang, 'Ula', 'Wustho', 'Ulya')")
             ->groupBy('jenjang', 'nama_asrama') // Mengelompokkan berdasarkan jenjang dan tgl
@@ -74,7 +80,8 @@ class WelcomeController extends Controller
                 'jenjang',
                 DB::raw('SUM(CASE WHEN keterangan = "sakit" THEN 1 ELSE 0 END) AS jumlah_sakit'),
                 DB::raw('SUM(CASE WHEN keterangan = "izin" THEN 1 ELSE 0 END) AS jumlah_izin'),
-                DB::raw('SUM(CASE WHEN keterangan = "alfa" THEN 1 ELSE 0 END) AS jumlah_alfa')
+            DB::raw('SUM(CASE WHEN keterangan = "alfa" THEN 1 ELSE 0 END) AS jumlah_alfa'),
+            DB::raw('SUM(CASE WHEN keterangan = "hadir" THEN 1 ELSE 0 END) AS jumlah_hadir')
             )
 
             ->where('tgl', '>=', $startDate)

@@ -19,26 +19,35 @@
                             <thead>
                                 <tr>
                                     <th rowspan="2" class=" border">Jenjang</th>
-                                    <th colspan="3" class=" border capitalize">keterangan</th>
+                                    <th colspan="5" class=" border capitalize">keterangan</th>
                                 </tr>
                                 <tr>
-
+                                    <th class=" border">Hadir</th>
                                     <th class=" border">Sakit</th>
                                     <th class=" border">Izin</th>
                                     <th class=" border">Alfa</th>
+                                    <th class=" border">Presentasi Kehadiran</th>
                                 </tr>
 
                             </thead>
                             <tbody>
                                 @foreach($asramaTerbanyaAlfa as $list)
-                                <tr class=" border ">
-                                    <td class=" border px-1">{{$list->jenjang}}</td>
-                                    <td class=" border px-1 text-center">{{$list->jumlah_sakit}}</td>
-                                    <td class=" border px-1 text-center">{{$list->jumlah_izin}}</td>
-                                    <td class=" border px-1 text-center">{{$list->jumlah_alfa}}</td>
-                                    <td class=" border px-1 text-center">{{$list->jumlah_sesi_per_jenjang}}</td>
+                                <tr class="border">
+                                    <td class="border px-1">{{$list->jenjang}}</td>
+                                    <td class="border px-1 text-center">{{$list->jumlah_hadir}}</td>
+                                    <td class="border px-1 text-center">{{$list->jumlah_sakit}}</td>
+                                    <td class="border px-1 text-center">{{$list->jumlah_izin}}</td>
+                                    <td class="border px-1 text-center">{{$list->jumlah_alfa}}</td>
+                                    <td class="border px-1 text-center">
+                                        <?php
+                                        $totalKehadiran = $list->jumlah_hadir + $list->jumlah_sakit + $list->jumlah_izin + $list->jumlah_alfa;
+                                        $presentasiKehadiran = ($list->jumlah_hadir / $totalKehadiran) * 100;
+                                        ?>
+                                        {{ number_format($presentasiKehadiran, 2) }}%
+                                    </td>
                                 </tr>
                                 @endforeach
+
                             </tbody>
                         </table>
                     </div>
