@@ -62,7 +62,6 @@ class RekapHarianController extends Controller
                     }
                 }
             }
-
             $progressBar = '<script>NProgress.start();</script>';
 
             // Bagi data menjadi batch-batch seukuran 1000
@@ -89,11 +88,6 @@ class RekapHarianController extends Controller
             // Misalnya, Anda dapat mencatat kesalahan atau memberi tahu pengguna.
             dd($e->getMessage()); // Ini hanya contoh penanganan kesalahan sederhana
         }
-
-
-
-
-
         return redirect()->back();
     }
 }

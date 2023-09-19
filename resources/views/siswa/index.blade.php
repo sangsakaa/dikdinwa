@@ -64,7 +64,7 @@
               <!-- <td class=" border text-center">{{ $siswa->tempat_lahir }}</td> -->
               <!-- <td class=" border text-center">{{ $siswa->tanggal_lahir }}</td> -->
               <!-- <td class=" border text-center">{{ $siswa->kota_asal }}</td> -->
-              <td class=" border text-center">{{ $siswa->nama_asrama }}</td>
+              <td class=" border text-center capitalize">{{ strtolower($siswa->nama_asrama) }}</td>
               <td class=" border text-center">{{ $siswa->madrasah_diniyah }}</td>
               <td class=" border text-center">{{ $siswa->nama_kelas }}</td>
             </tr>

@@ -1,5 +1,6 @@
 <x-guest-layout>
     <x-auth-card>
+
         <center>
             <p>
                 DEPARTEMEN <br>PENDIDIKAN DINIYAH WAHIDIYAH
