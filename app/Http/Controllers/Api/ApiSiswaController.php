@@ -4,11 +4,15 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Models\Siswa;
+use App\Models\RekapHarian;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
+use function Ramsey\Uuid\v1;
 
 class ApiSiswaController extends Controller
 {
@@ -123,5 +127,27 @@ class ApiSiswaController extends Controller
     public function setting()
     {
         return view('Syn');
+    }
+    public function Grafik()
+    {
+        $startDate = Carbon::now()->subWeek()->startOfWeek();
+        $asramaTerbanyaAlfa = RekapHarian::query()
+            ->whereIn('keterangan', ['alfa', 'izin', 'sakit'])
+            ->whereMonth('tgl', now()->month) // Filter berdasarkan bulan saat ini
+            ->orderByRaw("FIELD(jenjang, 'Ula', 'Wustho', 'Ulya')")
+            ->groupBy('jenjang') // Mengelompokkan berdasarkan jenjang dan tgl
+            ->select(
+                'jenjang',
+                DB::raw('SUM(CASE WHEN keterangan = "sakit" THEN 1 ELSE 0 END) AS jumlah_sakit'),
+                DB::raw('SUM(CASE WHEN keterangan = "izin" THEN 1 ELSE 0 END) AS jumlah_izin'),
+                DB::raw('SUM(CASE WHEN keterangan = "alfa" THEN 1 ELSE 0 END) AS jumlah_alfa')
+            )
+
+            ->where('tgl', '>=', $startDate)
+            ->orderby('jenjang')
+            ->orderby('tgl')
+            ->get();
+        return view('siswa.grafik', compact('asramaTerbanyaAlfa', 'startDate'));
+            
     }
 }

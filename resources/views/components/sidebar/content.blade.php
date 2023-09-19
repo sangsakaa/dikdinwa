@@ -25,6 +25,7 @@
         <x-sidebar.sublink title="Data Siswa" href="{{ route('data-siswa') }}" :active="request()->routeIs('data-siswa')" />
         <x-sidebar.sublink title="Data Guru" href="{{ route('data-guru') }}" :active="request()->routeIs('data-guru')" />
         <x-sidebar.sublink title="Rekap Harian" href="{{ route('rekap-siswa-harian') }}" :active="request()->routeIs('rekap-siswa-harian')" />
+        <x-sidebar.sublink title="Grafik Harian" href="{{ route('grafik-harian') }}" :active="request()->routeIs('grafik-harian')" />
     </x-sidebar.dropdown>
     <div x-transition x-show="isSidebarOpen || isSidebarHovered" class="text-sm text-gray-500">
         Pengaturan

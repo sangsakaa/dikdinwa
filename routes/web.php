@@ -42,6 +42,7 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('data-siswa', [SiswaController::class, 'index'])->name('data-siswa');
+    Route::get('grafik-harian', [ApiSiswaController::class, 'Grafik'])->name('grafik-harian');
     Route::get('data-guru', [ApiGuruController::class, 'getDataGuru'])->name('data-guru');
 });
 
