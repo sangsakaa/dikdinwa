@@ -17,28 +17,50 @@
                     <div>
                         <table class=" w-full">
                             <thead>
-                                <tr>
-                                    <th rowspan="2" class=" border">Jenjang</th>
-                                    <th colspan="5" class=" border capitalize">keterangan</th>
+                                <tr class=" border border-black bg-gray-200">
+                                    <th rowspan="2" class=" border border-black">Jenjang</th>
+                                    <th rowspan="2" class=" border border-black">Sesi</th>
+                                    <th rowspan="2" class=" border border-black">Jml Siswa</th>
+                                    <th colspan="7" class=" border border-black capitalize">keterangan</th>
                                 </tr>
-                                <tr>
-                                    <th class=" border">Hadir</th>
-                                    <th class=" border">Sakit</th>
-                                    <th class=" border">Izin</th>
-                                    <th class=" border">Alfa</th>
-                                    <th class=" border">Presentasi Kehadiran</th>
+                                <tr class=" border-black bg-gray-200">
+                                    <th class=" border border-black">Hadir</th>
+                                    <th class=" border border-black">Rata Rata <br>Hadir</th>
+                                    <th class=" border border-black">Sakit</th>
+                                    <th class=" border border-black">Izin</th>
+                                    <th class=" border border-black">Alfa</th>
+                                    <th class=" border border-black">Presentasi <br> Kehadiran</th>
                                 </tr>
 
                             </thead>
                             <tbody>
                                 @foreach($asramaTerbanyaAlfa as $list)
-                                <tr class="border">
-                                    <td class="border px-1">{{$list->jenjang}}</td>
-                                    <td class="border px-1 text-center">{{$list->jumlah_hadir}}</td>
-                                    <td class="border px-1 text-center">{{$list->jumlah_sakit}}</td>
-                                    <td class="border px-1 text-center">{{$list->jumlah_izin}}</td>
-                                    <td class="border px-1 text-center">{{$list->jumlah_alfa}}</td>
-                                    <td class="border px-1 text-center">
+                                <tr class="border border-black even:bg-gray-200">
+                                    <td class="border border-black px-1">{{$list->jenjang}}</td>
+                                    <td class="border border-black px-1 text-center">
+                                        {{$list->jumlah_tgl}}
+                                    </td>
+                                    <td class="border border-black px-1 text-center">
+                                        <?php
+                                        $totalKehadiran = $list->jumlah_hadir + $list->jumlah_sakit + $list->jumlah_izin + $list->jumlah_alfa;
+                                        $presentasiKehadiran = $totalKehadiran / $list->jumlah_tgl;
+                                        ?>
+                                        {{ number_format($presentasiKehadiran) }}
+
+                                    </td>
+                                    <td class="border border-black px-1 text-center">{{$list->jumlah_hadir}}</td>
+                                    <td class="border border-black px-1 text-center">
+                                        <?php
+                                        $totalKehadiran = $list->jumlah_hadir + $list->jumlah_sakit + $list->jumlah_izin + $list->jumlah_alfa;
+                                        $presentasiKehadiran = ($list->jumlah_hadir) / $list->jumlah_tgl;
+                                        ?>
+                                        {{ number_format($presentasiKehadiran, 0,2) }}
+                                    </td>
+
+                                    <td class="border border-black px-1 text-center">{{$list->jumlah_sakit}}</td>
+                                    <td class="border border-black px-1 text-center">{{$list->jumlah_izin}}</td>
+                                    <td class="border border-black px-1 text-center">{{$list->jumlah_alfa}}</td>
+                                    <td class="border border-black px-1 text-center">
                                         <?php
                                         $totalKehadiran = $list->jumlah_hadir + $list->jumlah_sakit + $list->jumlah_izin + $list->jumlah_alfa;
                                         $presentasiKehadiran = ($list->jumlah_hadir / $totalKehadiran) * 100;
@@ -47,6 +69,7 @@
                                     </td>
                                 </tr>
                                 @endforeach
+
 
                             </tbody>
                         </table>
