@@ -34,8 +34,9 @@ class RekapHarianController extends Controller
 
                 while (!$success && $retry < $maxRetries) {
                     try {
+                        $data = file_get_contents($url);
                         set_time_limit(200);
-                        $response = Http::timeout(30)->retry($maxRetries, $retryDelaySeconds)->get($url);
+                        $response = Http::timeout(30)->retry($maxRetries, $retryDelaySeconds)->get($data);
                         $nis = $response->json();
                         $success = true;
                     } catch (\Exception $e) {
@@ -65,8 +66,7 @@ class RekapHarianController extends Controller
             $progressBar = '<script>NProgress.start();</script>';
 
             // Bagi data menjadi batch-batch seukuran 1000
-            $batches = array_chunk($filteredData, 1000);
-
+            $batches = array_chunk($filteredData, 10000);
             foreach ($batches as $batch) {
                 RekapHarian::upsert(
                     $batch,

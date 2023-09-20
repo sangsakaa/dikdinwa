@@ -41,7 +41,6 @@
         </div>
       </div>
       <div class=" overflow-auto">
-
         <div class=" flex gap-2 grid-cols-2">
           <div>Tanggal</div>
           <div> : {{ \Carbon\Carbon::parse($tgl->toDateString())->isoFormat('dddd, DD MMMM Y') }}</div>
@@ -79,8 +78,8 @@
             @endif
           </tbody>
         </table>
-
       </div>
     </div>
   </div>
+
 </x-app-layout>

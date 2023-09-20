@@ -11,10 +11,22 @@
                 <div class=" grid grid-cols-1 sm:grid-cols-1 p-6 text-gray-900 gap-2">
                     <div>
                         <h1>
-                            {{ \Carbon\Carbon::parse($startDate)->format('M Y') }}
+
+
+
+
                         </h1>
+                        <form action="/grafik-harian" method="get" class="mr-auto">
+                            <input type="month" name="tgl" class=" py-1 dark:bg-dark-bg" value="{{ $tgl->format('Y-m') }}">
+                            <button class=" bg-red-600 py-1 dark:bg-purple-600 mt-1 my-1 rounded-sm hover:bg-purple-600 text-white px-4 ">
+                                Pilih Tanggal
+                            </button>
+                        </form>
                     </div>
                     <div>
+                        <div>
+                            Laporan : {{ Carbon\Carbon::parse($tgl)->isoFormat('MMMM YYYY') }}
+                        </div>
                         <table class=" w-full">
                             <thead>
                                 <tr class=" border border-black bg-gray-200">
@@ -25,11 +37,14 @@
                                 </tr>
                                 <tr class=" border-black bg-gray-200">
                                     <th class=" border border-black">Hadir</th>
-                                    <th class=" border border-black">Rata Rata <br>Hadir</th>
+                                    <th class=" border border-black">
+                                        x̄
+                                        Hadir
+                                    </th>
                                     <th class=" border border-black">Sakit</th>
                                     <th class=" border border-black">Izin</th>
                                     <th class=" border border-black">Alfa</th>
-                                    <th class=" border border-black">Presentasi <br> Kehadiran</th>
+                                    <th class=" border border-black">% Kehadiran</th>
                                 </tr>
 
                             </thead>
@@ -69,14 +84,17 @@
                                     </td>
                                 </tr>
                                 @endforeach
-
-
                             </tbody>
                         </table>
                     </div>
+                    <div class=" bg-blue-200">
+                        <div class=" p-1">
+                            x̄ : Rata Rata
+                        </div>
 
-
+                    </div>
                 </div>
+
 
             </div>
         </div>

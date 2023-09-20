@@ -5,14 +5,17 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Siswa;
 use App\Models\RekapHarian;
+use function Ramsey\Uuid\v1;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
 
-use function Ramsey\Uuid\v1;
+
+use Illuminate\Support\Facades\Validator;
+use Carbon\Exceptions\InvalidFormatException;
 
 class ApiSiswaController extends Controller
 {
@@ -30,7 +33,8 @@ class ApiSiswaController extends Controller
             $filteredData = [];
 
             foreach ($urls as $url) {
-                $response = Http::get($url);
+                $data = file_get_contents($url);
+                $response = Http::get($data);
                 $nis = $response->json();
                 // dd($nis);
                 // Periksa apakah ada data 'siswa' dalam respons
@@ -128,12 +132,17 @@ class ApiSiswaController extends Controller
     {
         return view('Syn');
     }
-    public function Grafik()
+    public function Grafik(Request $request)
     {
+        try {
+            $tgl = $request->tgl ? Carbon::parse($request->tgl) : now();
+        } catch (InvalidFormatException $ex) {
+            $tgl = now();
+        }
         $startDate = Carbon::now()->subWeek()->startOfWeek();
         $asramaTerbanyaAlfa = RekapHarian::query()
             ->whereIn('keterangan', ['alfa', 'izin', 'sakit', 'hadir'])
-            ->whereMonth('tgl', now()->month) // Filter berdasarkan bulan saat ini
+            ->whereMonth('tgl', $tgl) // Filter berdasarkan bulan saat ini
             ->orderByRaw("FIELD(jenjang, 'Ula', 'Wustho', 'Ulya')")
             ->groupBy('jenjang',) // Mengelompokkan berdasarkan jenjang
             ->select(
@@ -149,7 +158,11 @@ class ApiSiswaController extends Controller
             ->orderBy('jenjang')
             ->get();
 
-        return view('siswa.grafik', compact('asramaTerbanyaAlfa', 'startDate'));
+        return view('siswa.grafik', ([
+            'asramaTerbanyaAlfa' => $asramaTerbanyaAlfa,
+            'startDate' => $startDate,
+            'tgl' => $tgl
+        ]));
             
     }
 }
