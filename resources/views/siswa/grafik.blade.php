@@ -21,7 +21,7 @@
                     <div>
                         <h1>
                         </h1>
-                        <div>
+                        <div class=" flex">
                             <form action="/grafik-harian" method="get" class="mr-auto">
                                 <input type="month" name="tgl" class=" py-1 dark:bg-dark-bg" value="{{ $tgl->format('Y-m') }}">
                                 <button class=" bg-red-600 py-1 dark:bg-purple-600 mt-1 my-1 rounded-sm hover:bg-purple-600 text-white px-4 ">
