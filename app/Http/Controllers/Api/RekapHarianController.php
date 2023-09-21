@@ -25,48 +25,39 @@ class RekapHarianController extends Controller
             ];
             $filteredData = [];
 
-            $maxRetries = 3; // Maksimal percobaan
-            $retryDelaySeconds = 5; // Waktu penundaan antara percobaan
-
             foreach ($urls as $url) {
-                $retry = 0;
-                $success = false;
+                try {
+                    // Gunakan cURL untuk mengambil data dari URL
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_URL, $url);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    $data = curl_exec($ch);
 
-                while (!$success && $retry < $maxRetries) {
-                    try {
-                        $data = file_get_contents($url);
-                        set_time_limit(200);
-                        $response = Http::timeout(30)->retry($maxRetries, $retryDelaySeconds)->get($data);
-                        $nis = $response->json();
-                        $success = true;
-                    } catch (\Exception $e) {
-                        // Tangani kesalahan, misalnya mencetak pesan kesalahan dan menunggu beberapa detik sebelum mencoba lagi
-                        // Anda juga dapat membatasi jumlah percobaan retry yang dilakukan
-                        $retry++;
-                        sleep($retryDelaySeconds);
+                    if (curl_errno($ch)) {
+                        throw new \Exception("Curl error: " . curl_error($ch));
                     }
-                }
 
-                if (!$success) {
-                    // Penanganan jika permintaan gagal setelah sejumlah percobaan
-                    // Misalnya, Anda dapat mencatat pesan kesalahan atau memberi tahu pengguna.
-                    dd("Permintaan ke URL $url gagal setelah $maxRetries percobaan.");
-                }
+                    curl_close($ch);
 
-                // Lanjutkan pemrosesan data setelah permintaan berhasil
-                if (isset($nis['dataAbsensiKelas'])) {
-                    foreach ($nis['dataAbsensiKelas'] as $item) {
-                        // Filter berdasarkan jenjang 'Wustho' atau 'Ulya'
-                        if (in_array($item['jenjang'], ['Ulya', 'Wustho', 'Ula'])) {
-                            $filteredData[] = $item;
+                    $nis = json_decode($data, true);
+
+                    // Lanjutkan pemrosesan data setelah permintaan berhasil
+                    if (isset($nis['dataAbsensiKelas'])) {
+                        foreach ($nis['dataAbsensiKelas'] as $item) {
+                            // Filter berdasarkan jenjang 'Wustho' atau 'Ulya'
+                            if (in_array($item['jenjang'], ['Ulya', 'Wustho', 'Ula'])) {
+                                $filteredData[] = $item;
+                            }
                         }
                     }
+                } catch (\Exception $e) {
+                    // Tangani kesalahan, misalnya mencetak pesan kesalahan
+                    dd("Error: " . $e->getMessage());
                 }
             }
-            $progressBar = '<script>NProgress.start();</script>';
 
             // Bagi data menjadi batch-batch seukuran 1000
-            $batches = array_chunk($filteredData, 10000);
+            $batches = array_chunk($filteredData, 1000);
             foreach ($batches as $batch) {
                 RekapHarian::upsert(
                     $batch,
@@ -86,8 +77,9 @@ class RekapHarianController extends Controller
             // Tangani kesalahan umum, seperti masalah koneksi, dengan cara yang sesuai
             // Anda dapat menambahkan kode penanganan kesalahan di sini
             // Misalnya, Anda dapat mencatat kesalahan atau memberi tahu pengguna.
-            dd($e->getMessage()); // Ini hanya contoh penanganan kesalahan sederhana
+            dd("Error: " . $e->getMessage()); // Ini hanya contoh penanganan kesalahan sederhana
         }
+
         return redirect()->back();
     }
 }
