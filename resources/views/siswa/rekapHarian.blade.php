@@ -25,9 +25,11 @@
           </form>
         </div>
       </div>
-
     </div>
   </x-slot>
+  <div class=" py-1 bg-white">
+    p
+  </div>
   <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
     <div class=" bg-white  justify-between ">
       <div class=" py-1">

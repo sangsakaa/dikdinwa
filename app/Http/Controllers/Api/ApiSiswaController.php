@@ -29,12 +29,12 @@ class ApiSiswaController extends Controller
                 'https://ula.smedi.my.id/api/getDataSiswa',
                 // Tambahkan URL lainnya di sini jika diperlukan
             ];
-            
+           
             $filteredData = [];
-
+           
             foreach ($urls as $url) {
-                $data = file_get_contents($url);
-                $response = Http::get($data);
+                // $data = file_get_contents($url);
+                $response = Http::get($url);
                 $nis = $response->json();
                 // dd($nis);
                 // Periksa apakah ada data 'siswa' dalam respons

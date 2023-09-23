@@ -96,6 +96,15 @@
                                         </td>
                                     </tr>
                                     @endforeach
+                                    <tr class=" border ">
+                                        <td class=" border" colspan="2">
+                                            Total Murid
+                                        </td>
+                                        <td class=" border" colspan="2">
+                                            {{$asramaTerbanyaAlfa->where('sesi_kelas_id')->count()}}
+                                        </td>
+
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
