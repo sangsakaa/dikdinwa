@@ -19,4 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 
 });
-Route::get('/GetMahasiswa', [ApiTestingController::class, 'index'])->name('periode');
+Route::get('/GetMahasiswa', [ApiTestingController::class, 'index'])->name('GetMahasiswa');
