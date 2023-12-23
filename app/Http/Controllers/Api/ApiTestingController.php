@@ -38,10 +38,11 @@ class ApiTestingController extends Controller
     {
         try {
             $data = $this->getMahasiswa();
+            dd($data);
         } catch (ConnectionException $ex) {
             
         }
-        dd($data);
+        
 
         
 
