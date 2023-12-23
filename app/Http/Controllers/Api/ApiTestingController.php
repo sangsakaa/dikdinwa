@@ -43,8 +43,8 @@ class ApiTestingController extends Controller
         }
         dd($data);
 
-        $total = count($data);
+        
 
-        return view('mahasiswa.getData', ['listMahasiswa' => $data, 'total' => $total]);
+        
     }
 }
