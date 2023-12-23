@@ -5,8 +5,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-
     <title>SMEDI @yield('title')</title>
     <link rel="shortcut icon" href="{{asset('asset/images/logo.png')}}" type="image/x-icon">
 
@@ -19,9 +17,9 @@
             display: none;
         }
     </style>
-
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireStyles
 </head>
 
 <body class="font-sans antialiased">
@@ -29,7 +27,6 @@
         <div class="min-h-screen text-gray-900 bg-gray-100 dark:bg-dark-eval-0 dark:text-gray-200">
             <!-- Sidebar -->
             <x-sidebar.sidebar />
-
             <!-- Page Wrapper -->
             <div class="flex flex-col min-h-screen" :class="{
                     'lg:ml-64': isSidebarOpen,
@@ -38,17 +35,20 @@
 
                 <!-- Navbar -->
                 <x-navbar />
-
                 <!-- Page Heading -->
                 <header>
-                    <div class="p-4 sm:p-6">
-                        {{ $header }}
+                    <div class="mt-1  ">
+                        <div class="p-2  bg-white">
+                            {{ $header }}
+                        </div>
                     </div>
                 </header>
 
                 <!-- Page Content -->
-                <main class="px-4 sm:px-6 flex-1">
-                    {{ $slot }}
+                <main class="px-4 sm:px-0 flex-1">
+                    <div class=" p-2">
+                        {{ $slot }}
+                    </div>
                 </main>
 
                 <!-- Page Footer -->
@@ -56,6 +56,7 @@
             </div>
         </div>
     </div>
+    @livewireScripts
 </body>
 
 </html>

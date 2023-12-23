@@ -1,14 +1,13 @@
 <x-guest-layout>
     <x-auth-card>
-
         <center>
+            <img src="{{asset('asset/images/logo.png')}}" width="80" alt="">
             <p>
                 DEPARTEMEN <br>PENDIDIKAN DINIYAH WAHIDIYAH
             </p>
         </center>
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
-
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 

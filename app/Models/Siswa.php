@@ -21,7 +21,12 @@ class Siswa extends Model
         'tanggal_lahir',
         'kota_asal',
         'nama_asrama',
-        'nama_kelas'
-        
+        'nama_kelas'    
     ];
+    public static function search($search)
+    {
+        return empty($search) ? static::query() : static::query()
+            ->Orwhere('nis', 'like', '%' . $search . '%')
+            ->OrWhere('nama_siswa', 'like', '%' . $search . '%');
+    }
 }
