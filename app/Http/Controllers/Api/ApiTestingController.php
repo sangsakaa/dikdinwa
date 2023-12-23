@@ -39,7 +39,7 @@ class ApiTestingController extends Controller
         try {
             $data = $this->getMahasiswa();
         } catch (ConnectionException $ex) {
-            return view('mahasiswa.getData', ['listMahasiswa' => [], 'total' => 0])->with('error', 'tidak terhubung dengan server');
+            
         }
         dd($data);
 
