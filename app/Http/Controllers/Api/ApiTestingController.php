@@ -37,11 +37,12 @@ class ApiTestingController extends Controller
     }
     public function index()
     {
-        try {
-            $data = $this->getMahasiswa();
-        } catch (ConnectionException $ex) {
-            return view('mahasiswa.getData', ['listMahasiswa' => [], 'total' => 0])->with('error', 'tidak terhubung dengan server');
-        }
+        // try {
+        //     $data = $this->getMahasiswa();
+        // } catch (ConnectionException $ex) {
+        //     return view('mahasiswa.getData', ['listMahasiswa' => [], 'total' => 0])->with('error', 'tidak terhubung dengan server');
+        // }
+        $data = $this->getMahasiswa();
         dd($data);
 
         
