@@ -29,6 +29,7 @@ class ApiTestingController extends Controller
             // 'order' =>  'nama_program_studi,id_periode,nama_mahasiswa',
             'limit' => 0
         ]);
+        
         $hapusNimNull = function ($data) {
             return $data['nim'] != null;
         };
@@ -38,13 +39,10 @@ class ApiTestingController extends Controller
     {
         try {
             $data = $this->getMahasiswa();
-            dd($data);
         } catch (ConnectionException $ex) {
-            
+            return view('mahasiswa.getData', ['listMahasiswa' => [], 'total' => 0])->with('error', 'tidak terhubung dengan server');
         }
-        
-
-        
+        dd($data);
 
         
     }
